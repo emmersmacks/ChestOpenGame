@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{AD2DECD6-9619-3CD5-DBCD-B7A65DE8F56C}</ProjectGuid>
+    <ProjectGuid>{6CA1B561-4D53-5AD0-F7B3-C2AEC9E11DE6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>UniTask.DOTween</AssemblyName>
@@ -286,9 +286,6 @@
     </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.WebGL.Extensions">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\PlaybackEngines\WebGLSupport\UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
@@ -662,7 +659,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UniTask.csproj">
-      <Project>{ABDF033F-A572-1C7D-69C8-F889B7B1ECF9}</Project>
+      <Project>{DF5499C1-9F30-D858-4BC6-B93FBDF941ED}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
   </ItemGroup>

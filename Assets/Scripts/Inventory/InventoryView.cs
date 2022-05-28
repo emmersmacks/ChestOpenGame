@@ -5,4 +5,5 @@ using UnityEngine;
 public class InventoryView : MonoBehaviour
 {
     [SerializeField] internal GameObject grid;
+    [SerializeField] internal Sprite slotsBackground;
 }

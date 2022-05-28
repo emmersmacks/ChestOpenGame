@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B2A0C1ED-2A20-65EB-5B2D-5636CE65B831}</ProjectGuid>
+    <ProjectGuid>{58201C94-896E-8BAA-BA0C-455BE17AA66B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>UniTask.Addressables</AssemblyName>
@@ -286,9 +286,6 @@
     </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.WebGL.Extensions">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\PlaybackEngines\WebGLSupport\UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
@@ -662,7 +659,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UniTask.csproj">
-      <Project>{ABDF033F-A572-1C7D-69C8-F889B7B1ECF9}</Project>
+      <Project>{DF5499C1-9F30-D858-4BC6-B93FBDF941ED}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
   </ItemGroup>

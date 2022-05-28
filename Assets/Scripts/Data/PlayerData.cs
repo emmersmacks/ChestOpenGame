@@ -29,12 +29,13 @@ public class PlayerDataController
             Data = new PlayerData();
         }
 
+        Debug.Log("First start");
         Data.Token = 100;
         Data.Diamond = 100;
         Data.Keys = 0;
         Data.MasterKeys = 5;
-        Data.CardInventory = new List<CardInfo>(1);
-        Data.ChestInventory = new List<ChestInfo>(1);
+        Data.CardInventory = new List<CardInfo>();
+        Data.ChestInventory = new List<ChestInfo>();
     }
 }
 

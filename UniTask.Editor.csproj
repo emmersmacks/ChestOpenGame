@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{552FCECD-9736-8B5D-88F0-EF1DE4716580}</ProjectGuid>
+    <ProjectGuid>{32EDAB60-310B-82C8-E84F-166F3BF9AAAB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>UniTask.Editor</AssemblyName>
@@ -56,9 +56,9 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Plugins\UniTask\Editor\UniTaskTrackerWindow.cs" />
     <Compile Include="Assets\Plugins\UniTask\Editor\SplitterGUILayout.cs" />
     <Compile Include="Assets\Plugins\UniTask\Editor\UniTaskTrackerTreeView.cs" />
-    <Compile Include="Assets\Plugins\UniTask\Editor\UniTaskTrackerWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\UniTask\Editor\UniTask.Editor.asmdef" />
@@ -288,9 +288,6 @@
     </Reference>
     <Reference Include="UnityEditor.Graphs">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\Managed\UnityEditor.Graphs.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEditor.WebGL.Extensions">
-      <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\PlaybackEngines\WebGLSupport\UnityEditor.WebGL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.Android.Extensions">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.14f1\Editor\Data\PlaybackEngines\AndroidPlayer\UnityEditor.Android.Extensions.dll</HintPath>
@@ -676,7 +673,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="UniTask.csproj">
-      <Project>{ABDF033F-A572-1C7D-69C8-F889B7B1ECF9}</Project>
+      <Project>{DF5499C1-9F30-D858-4BC6-B93FBDF941ED}</Project>
       <Name>UniTask</Name>
     </ProjectReference>
   </ItemGroup>

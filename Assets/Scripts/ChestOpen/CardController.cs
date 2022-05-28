@@ -5,25 +5,29 @@ using UnityEngine;
 public class CardController
 {
     private List<CardInfo> _cards;
-
+    internal List<CardInfo> _currentWinCombination;
+    private int generationSeed = 2;
     public CardController(List<CardInfo> cards)
     {
         _cards = cards;
+        _currentWinCombination = new List<CardInfo>();
     }
 
     public CardInfo GetRandomCard()
     {
-        var cardIndex = Random.Range(0, _cards.Count);
+        generationSeed += 12;
+        var random = new System.Random(generationSeed);
+        var cardIndex = random.Next(0, _cards.Count);
         return _cards[cardIndex];
     }
 
     public List<CardInfo> GetWinCombination()
     {
-        var winCombination = new List<CardInfo>();
+        _currentWinCombination = new List<CardInfo>();
         for(int i = 0; i < 3; i++)
         {
-            winCombination.Add(GetRandomCard());
+            _currentWinCombination.Add(GetRandomCard());
         }
-        return winCombination;
+        return _currentWinCombination;
     }
 }

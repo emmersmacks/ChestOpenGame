@@ -13,11 +13,13 @@ public class ApplicationController : MonoBehaviour
     [SerializeField] private InventoryView _inventoryChestView;
     [SerializeField] private ChestOpenView _chestOpenView;
     [SerializeField] private List<CardInfo> allCards;
+    [SerializeField] private ChestInfo defaultChest;
 
     private void Start()
     {
         _data = new PlayerDataController();
         _data.Load();
+        _data.Data.ChestInventory.Add(defaultChest);
         InitControllers();
     }
 
@@ -33,6 +35,7 @@ public class ApplicationController : MonoBehaviour
         var cardController = new CardController(allCards);
         var chestOpen = new ChestOpenController(_chestOpenView, _data, ui, cardController);
         var chestInventory = new ChestInventoryController(_inventoryChestView, _data, chestOpen);
+        var cardInventory = new CardInventoryController(_cardsInventoryView, _data, chestOpen);
         var shop = new ShopController(_shopView, ui, _data, chestInventory);
     }
 }

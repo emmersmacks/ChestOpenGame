@@ -20,13 +20,13 @@ public class ShopController
 
     public void FillAllSlots()
     {
-        for(int i = 1; i < _view.grid.transform.childCount; i++)
-        {
-            var slot = _view.grid.transform.GetChild(i);
-            var slotView = slot.GetComponent<ShopSlotView>();
-            FillSlot(slotView);
-            slotView.buyButton.onClick.AddListener(delegate { BuyChest(slotView.chest); });
-        }
+        //for(int i = 1; i < _view.grid.transform.childCount; i++)
+        //{
+        //    var slot = _view.grid.transform.GetChild(i);
+        //    var slotView = slot.GetComponent<ShopSlotView>();
+        //    FillSlot(slotView);
+        //    slotView.buyButton.onClick.AddListener(delegate { BuyChest(slotView.chest); });
+        //}
 
         var firstSlot = _view.grid.transform.GetChild(0);
         var keySlotView = firstSlot.GetComponent<ShopSlotView>();
@@ -76,7 +76,6 @@ public class ShopController
             if(inventoryItem.chestName == item.chestName)
                 return inventoryItem;
         }
-
         return null;
     }
 }

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{D5FF3A27-0604-1EBA-CBBC-91A62707D56A}</ProjectGuid>
+    <ProjectGuid>{7F0CE690-4878-4C2A-D553-9A6C2159AD3D}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -56,27 +56,34 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\Data\PlayerData.cs" />
-    <Compile Include="Assets\Scripts\Data\SaveData.cs" />
-    <Compile Include="Assets\Scripts\Data\LoadData.cs" />
-    <Compile Include="Assets\Scripts\Data\CardInfo.cs" />
-    <Compile Include="Assets\Scripts\Data\ChestInfo.cs" />
-    <Compile Include="Assets\Scripts\UI\PanelsView.cs" />
-    <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\UI\UIView.cs" />
     <Compile Include="Assets\Scripts\ApplicationController.cs" />
-    <Compile Include="Assets\Scripts\Menu\MenuView.cs" />
-    <Compile Include="Assets\Scripts\Menu\MenuController.cs" />
-    <Compile Include="Assets\Scripts\Inventory\InventoryView.cs" />
-    <Compile Include="Assets\Scripts\Inventory\ChestInventoryController.cs" />
-    <Compile Include="Assets\Scripts\Inventory\CardInventoryController.cs" />
-    <Compile Include="Assets\Scripts\Shop\ShopView.cs" />
-    <Compile Include="Assets\Scripts\Shop\ShopController.cs" />
+    <Compile Include="Assets\Scripts\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\Shop\ShopSlotView.cs" />
-    <Compile Include="Assets\Scripts\Inventory\InventorySlotView.cs" />
-    <Compile Include="Assets\Scripts\ChestOpen\ChestOpenView.cs" />
     <Compile Include="Assets\Scripts\ChestOpen\ChestOpenController.cs" />
+    <Compile Include="Assets\Scripts\Inventory\ChestInventoryController.cs" />
+    <Compile Include="Assets\Scripts\Shop\ShopController.cs" />
+    <Compile Include="Assets\Scripts\Menu\MenuView.cs" />
+    <Compile Include="Assets\Scripts\Data\CardInfo.cs" />
+    <Compile Include="Assets\Scripts\ChestOpen\ChestOpenView.cs" />
+    <Compile Include="Assets\Scripts\Inventory\CardInventoryController.cs" />
+    <Compile Include="Assets\Scripts\Data\LoadData.cs" />
+    <Compile Include="Assets\Scripts\Shop\ShopView.cs" />
+    <Compile Include="Assets\Scripts\Data\SaveData.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryChestSlotView.cs" />
+    <Compile Include="Assets\Scripts\Data\ChestInfo.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryView.cs" />
+    <Compile Include="Assets\Scripts\Data\PlayerData.cs" />
+    <Compile Include="Assets\Scripts\UI\PanelsView.cs" />
     <Compile Include="Assets\Scripts\ChestOpen\CardController.cs" />
+    <Compile Include="Assets\Scripts\Menu\MenuController.cs" />
+    <Compile Include="Assets\Scripts\Inventory\InventoryCardsSlotView.cs" />
+    <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
+    <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
+    <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csParticleMove.cs" />
+    <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csMouseOrbit.cs" />
+    <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csDestroyEffect.cs" />
+    <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csAnimationSpin.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -741,25 +748,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="UniTask.Addressables.csproj">
-      <Project>{B2A0C1ED-2A20-65EB-5B2D-5636CE65B831}</Project>
-      <Name>UniTask.Addressables</Name>
-    </ProjectReference>
     <ProjectReference Include="UniTask.DOTween.csproj">
-      <Project>{AD2DECD6-9619-3CD5-DBCD-B7A65DE8F56C}</Project>
+      <Project>{6CA1B561-4D53-5AD0-F7B3-C2AEC9E11DE6}</Project>
       <Name>UniTask.DOTween</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.csproj">
-      <Project>{ABDF033F-A572-1C7D-69C8-F889B7B1ECF9}</Project>
-      <Name>UniTask</Name>
+    <ProjectReference Include="UniTask.Linq.csproj">
+      <Project>{AD9B4A20-9E00-CB5D-93E3-8082080C1B1A}</Project>
+      <Name>UniTask.Linq</Name>
     </ProjectReference>
     <ProjectReference Include="UniTask.TextMeshPro.csproj">
-      <Project>{81A9481D-42D0-E478-207F-15445EB58102}</Project>
+      <Project>{FC568C9A-B417-3837-385E-248364483D6C}</Project>
       <Name>UniTask.TextMeshPro</Name>
     </ProjectReference>
-    <ProjectReference Include="UniTask.Linq.csproj">
-      <Project>{B71FC701-D5ED-3A05-EFBF-75E97093195B}</Project>
-      <Name>UniTask.Linq</Name>
+    <ProjectReference Include="UniTask.csproj">
+      <Project>{DF5499C1-9F30-D858-4BC6-B93FBDF941ED}</Project>
+      <Name>UniTask</Name>
+    </ProjectReference>
+    <ProjectReference Include="UniTask.Addressables.csproj">
+      <Project>{58201C94-896E-8BAA-BA0C-455BE17AA66B}</Project>
+      <Name>UniTask.Addressables</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

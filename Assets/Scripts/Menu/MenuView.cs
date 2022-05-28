@@ -12,4 +12,7 @@ public class MenuView : MonoBehaviour
     [SerializeField] internal GameObject shopScreen;
     [SerializeField] internal GameObject cardInventoryScreen;
     [SerializeField] internal GameObject chestInventoryScreen;
+
+    [SerializeField] internal Sprite enableSprite;
+    [SerializeField] internal Sprite disableSprite;
 }

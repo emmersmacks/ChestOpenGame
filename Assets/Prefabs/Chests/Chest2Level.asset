@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2318243dfe1d3e4a87c74afef2724cb, type: 3}
   m_Name: Chest2Level
   m_EditorClassIdentifier: 
-  _chestSprite: {fileID: 21300000, guid: 407108e58aab5ed4b9789a4dd57899c6, type: 3}
+  _chestSprite: {fileID: 21300000, guid: 7be611413e5c7af4488f92a05b196855, type: 3}
   _chestName: Chest level 2
   _price: 20
   _count: 1
