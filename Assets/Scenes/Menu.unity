@@ -3312,6 +3312,13 @@ GameObject:
   m_Component:
   - component: {fileID: 528567157}
   - component: {fileID: 528567156}
+  - component: {fileID: 528567164}
+  - component: {fileID: 528567163}
+  - component: {fileID: 528567162}
+  - component: {fileID: 528567161}
+  - component: {fileID: 528567160}
+  - component: {fileID: 528567159}
+  - component: {fileID: 528567158}
   m_Layer: 0
   m_Name: Application
   m_TagString: Untagged
@@ -3331,12 +3338,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44a743ad62a312945b6513220cdc633c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _uiView: {fileID: 437206259}
-  _menuView: {fileID: 1887378992}
-  _cardsInventoryView: {fileID: 2029176816}
-  _chestsInventoryView: {fileID: 562005709}
-  _shopView: {fileID: 1603811482}
-  _inventoryChestView: {fileID: 562005709}
   _chestOpenView: {fileID: 1614874021}
   allCards:
   - {fileID: 11400000, guid: 95a4cf58f930e914d910edd3d99971f1, type: 2}
@@ -3361,6 +3362,101 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &528567158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79266b5cc04c68b4f9de6342906b3630, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 2029176816}
+  _model: {fileID: 11400000, guid: 622d04bfb5eed8a43be74d4ad39bc5f0, type: 2}
+--- !u!114 &528567159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 034f05d706900de4994d097205178ac3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 562005709}
+  _model: {fileID: 11400000, guid: c59e720866998684a9c921cb187f294f, type: 2}
+--- !u!114 &528567160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30fcb5683bbc4184b89245a092f6046f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 1614874021}
+  _model: {fileID: 11400000, guid: 574bde90b0b63ba498784509cd0d37e0, type: 2}
+--- !u!114 &528567161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3a0aa6f6675d6045b5586be9daeb801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &528567162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5523bb9ff0977d4bbc2a15ea5dc4b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 1887378992}
+  _model: {fileID: 11400000, guid: 065dd789c1a1aab4b9403f20353d6925, type: 2}
+--- !u!114 &528567163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65a27c2dfd33ee642a6b96d16903ca38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _view: {fileID: 1603811482}
+  _model: {fileID: 11400000, guid: 356eb96866ec2ed41abfe75bf054dfed, type: 2}
+--- !u!114 &528567164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528567155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d567c1b1a09514cbc1b67ed921ecca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _uiView: {fileID: 437206259}
 --- !u!1 &535178002
 GameObject:
   m_ObjectHideFlags: 0
@@ -12956,8 +13052,6 @@ MonoBehaviour:
   shopScreen: {fileID: 1603811480}
   cardInventoryScreen: {fileID: 2029176814}
   chestInventoryScreen: {fileID: 562005707}
-  enableSprite: {fileID: 21300000, guid: 202b11f2bdd015c4486e0ed12e47bc3d, type: 3}
-  disableSprite: {fileID: 21300000, guid: 36e2204ac328e4145ac41d11cf4d10c8, type: 3}
 --- !u!1 &1892340100
 GameObject:
   m_ObjectHideFlags: 0

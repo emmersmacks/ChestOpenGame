@@ -9,6 +9,66 @@ public class PlayerDataController
     private const string dataPath = "/PlayerData";
     public PlayerData Data { get; set; }
 
+    private UIController _ui;
+
+    public PlayerDataController(UIController ui)
+    {
+        _ui = ui;
+        Load();
+    }
+
+    public void DebitingToken(int number)
+    {
+        if(Data.Token >= number)
+            Data.Token -= number;
+        _ui.UpdateTokenPanel(this);
+    }
+
+    public void DebitingKey(int number)
+    {
+        if (Data.Keys >= number)
+            Data.Keys -= number;
+        _ui.UpdateKeyPanel(this);
+    }
+
+    public void DebitingMasterKey(int number)
+    {
+        if (Data.MasterKeys >= number)
+            Data.MasterKeys -= number;
+        _ui.UpdateMasterKeyPanel(this);
+    }
+
+    public void DebitingDiamond(int number)
+    {
+        if (Data.Diamond >= number)
+            Data.Diamond -= number;
+        _ui.UpdateDiamondPanel(this);
+    }
+
+    public void DepositKey(int number)
+    {
+        Data.Keys += number;
+        _ui.UpdateKeyPanel(this);
+    }
+
+    public void DepositToken(int number)
+    {
+        Data.Token += number;
+        _ui.UpdateTokenPanel(this);
+    }
+
+    public void DepositDiamond(int number)
+    {
+        Data.Diamond += number;
+        _ui.UpdateDiamondPanel(this);
+    }
+
+    public void DepositMasterKey(int number)
+    {
+        Data.MasterKeys += number;
+        _ui.UpdateMasterKeyPanel(this);
+    }
+
     public void Load()
     {
         if (File.Exists(dataPath))
