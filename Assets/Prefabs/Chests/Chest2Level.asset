@@ -16,3 +16,4 @@ MonoBehaviour:
   _chestName: Chest level 2
   _price: 20
   _count: 1
+  winChanceInProcent: 50

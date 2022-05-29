@@ -12,3 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 299c2a1041a79bd4fbe27cde3f2ef5af, type: 3}
   m_Name: ChestOpenModel
   m_EditorClassIdentifier: 
+  cardPref: {fileID: 2332765390023495516, guid: c10c97ce0321218458b2369bebee61db, type: 3}
+  winCombinationPref: {fileID: 8592980860831309822, guid: 7d4da022e98f5be43bd2fa8b491b83f3, type: 3}
+  defaultChest: {fileID: 11400000, guid: e46d2154d38cf524ea2917026dedd09f, type: 2}
+  upgradeChest: {fileID: 11400000, guid: 44c15c86829f0534ba568dbfd9dc8680, type: 2}

@@ -10,6 +10,7 @@ public class ChestInfo : ScriptableObject
     [SerializeField] private string _chestName;
     [SerializeField] private int _price;
     [SerializeField] internal int _count = 1;
+    [SerializeField] internal int winChanceInProcent;
     public Sprite chestSprite => this._chestSprite;
     public int price => this._price;
     public string chestName => this._chestName;

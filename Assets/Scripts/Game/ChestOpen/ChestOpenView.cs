@@ -5,23 +5,22 @@ using UnityEngine.UI;
 
 public class ChestOpenView : MonoBehaviour, IView
 {
-    [SerializeField] internal ChestInfo defaultChest;
-    [SerializeField] internal ChestInfo upgradeChest;
+    
     [SerializeField] internal Button hackButton;
     [SerializeField] internal Button openButton;
     [SerializeField] internal Button closeButton;
     [SerializeField] internal Button upgradeButton;
     [SerializeField] internal Image preview;
-    [SerializeField] private GameObject cardPref;
-    [SerializeField] private GameObject winCombinationPref;
+
     [SerializeField] internal GameObject cardPositions;
     [SerializeField] internal GameObject showCardEffect;
     [SerializeField] internal GameObject openChestEffect;
-    internal GameObject currentCard;
-    internal List<GameObject> currentCardsCombination;
-    internal GameObject currentWinCombinationPref;
 
-    public void InstantiateNewCard()
+    internal GameObject currentCard;
+    internal GameObject currentWinCombinationPref;
+    internal List<GameObject> currentCardsCombination;
+
+    public void InstantiateNewCard(GameObject cardPref)
     {
         currentCard = Instantiate(cardPref, new Vector2(0, -9), Quaternion.identity, transform);
         if(currentCardsCombination == null)
@@ -29,7 +28,7 @@ public class ChestOpenView : MonoBehaviour, IView
         currentCardsCombination.Add(currentCard);
     }
 
-    public void InstantiateCardCombination()
+    public void InstantiateCardCombination(GameObject winCombinationPref)
     {
         currentWinCombinationPref = Instantiate(winCombinationPref, new Vector2(0, 0), Quaternion.identity, transform);
     }

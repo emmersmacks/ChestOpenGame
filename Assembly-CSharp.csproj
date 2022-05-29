@@ -100,6 +100,7 @@
     <Compile Include="Assets\Scripts\Game\ChestOpen\ChestOpenModel.cs" />
     <Compile Include="Assets\Scripts\Applications\ChestOpenApplication.cs" />
     <Compile Include="Assets\Scripts\Applications\IApplication.cs" />
+    <Compile Include="Assets\Scripts\Animations\OpenChestAnimations.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

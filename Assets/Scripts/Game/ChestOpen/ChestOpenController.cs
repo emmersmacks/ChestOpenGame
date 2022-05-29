@@ -20,9 +20,9 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
     {
         var screen = _view.gameObject.transform.GetChild(0).gameObject;
         screen.transform.position = new Vector3(0, -10, 0);
-        SlideUpAnimation(screen);
+        OpenChestAnimations.SlideUpAnimation(screen);
         _model.currentChest = chest;
-        if (_model.currentChest.chestName != _view.defaultChest.chestName)
+        if (_model.currentChest.chestName != _model.defaultChest.chestName)
             _view.upgradeButton.gameObject.SetActive(false);
         else
             _view.upgradeButton.gameObject.SetActive(true);
@@ -32,7 +32,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
     public async UniTask CloseOpenScreen()
     {
-        await WindowSlideDownAnimation(_view.gameObject.transform.GetChild(0).gameObject);
+        await OpenChestAnimations.WindowSlideDownAnimation(_view.gameObject.transform.GetChild(0).gameObject);
         _view.gameObject.SetActive(false);
     }
 
@@ -52,7 +52,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
     public void ChestUpgrade()
     {
-        _model.data.Data.ChestInventory.Add(_view.upgradeChest);
+        _model.data.Data.ChestInventory.Add(_model.upgradeChest);
         reloadInventory();
     }
 
@@ -62,7 +62,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
         {
             _view.openChestEffect.SetActive(true);
             var openChestScreen = _view.transform.GetChild(0).gameObject;
-            await WindowSlideDownAnimation(openChestScreen);
+            await OpenChestAnimations.WindowSlideDownAnimation(openChestScreen);
             _view.showCardEffect.SetActive(true);
             await UniTask.Delay(1000);
             openChestScreen.SetActive(false);
@@ -70,7 +70,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
             _model.data.DebitingKey(1);
 
-            if (_model.currentChest.chestName == _view.upgradeChest.chestName)
+            if (_model.currentChest.chestName == _model.upgradeChest.chestName)
             {
                 Debug.Log("Upgrade chest open!");
                 await StartMisteryBoxShow();
@@ -78,7 +78,6 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
             else
             {
                 await StartCardsShow();
-
             }
 
             _view.showCardEffect.SetActive(false);
@@ -93,7 +92,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
     private async UniTask FillWinCombination()
     {
         var combination = _model.cardController.GetWinCombination();
-        _view.InstantiateCardCombination();
+        _view.InstantiateCardCombination(_model.winCombinationPref);
         for(int i = 0; i < 3; i++)
         {
             _view.currentWinCombinationPref.transform.GetChild(i).GetComponent<Image>().sprite = combination[i].cardSprite;
@@ -119,7 +118,6 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
         _view.DestroyCurrentCardCombination();
         _view.transform.GetChild(0).gameObject.SetActive(true);
         CloseOpenScreen();
-
     }
 
     private async UniTask StartCardsShow()
@@ -130,7 +128,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
         var random = new System.Random();
         var randomIndex = random.Next(0, 100);
-        if (randomIndex < 50)
+        if (randomIndex < _model.currentChest.winChanceInProcent)
         {
             isWinCombination = true;
             Debug.Log("Win combination!!");
@@ -160,43 +158,13 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
     public async UniTask StartCardsShowAnimation(CardInfo card, int cardIndex)
     {
-        _view.InstantiateNewCard();
+        _view.InstantiateNewCard(_model.cardPref);
         _view.currentCard.GetComponent<Image>().sprite = card.cardSprite;
 
-        await SlideUpAnimation(_view.currentCard);
+        await OpenChestAnimations.SlideUpAnimation(_view.currentCard);
         await UniTask.Delay(500);
-        await SlideToPointAnimation(cardIndex);
+        await OpenChestAnimations.SlideToPointAnimation(_view, cardIndex);
         await UniTask.Delay(1000);
-    }
-
-    private async UniTask SlideUpAnimation(GameObject obj)
-    {
-        while(obj.transform.position.y < 0)
-        {
-            var cardTransform = obj.transform;
-            cardTransform.position = new Vector3(cardTransform.position.x, cardTransform.position.y + 0.4f);
-            await UniTask.Delay(10);
-        }
-    }
-
-    private async UniTask WindowSlideDownAnimation(GameObject window)
-    {
-        while (window.transform.position.y > -10)
-        {
-            var windowsTransform = window.transform;
-            windowsTransform.position = new Vector3(windowsTransform.position.x, windowsTransform.position.y - 0.2f);
-            await UniTask.Delay(7);
-        }
-    }
-
-    private async UniTask SlideToPointAnimation(int index)
-    {
-        var direction =_view.cardPositions.transform.GetChild(index).position - _view.currentCard.transform.position;
-        while(_view.currentCard.transform.position != _view.cardPositions.transform.GetChild(index).position)
-        {
-            _view.currentCard.transform.position = Vector3.MoveTowards(_view.currentCard.transform.position, _view.cardPositions.transform.GetChild(index).position, 3);
-            await UniTask.Delay(10);
-        }
     }
 
     private void HackStart()
