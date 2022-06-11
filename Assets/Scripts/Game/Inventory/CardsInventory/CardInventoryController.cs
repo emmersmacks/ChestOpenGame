@@ -8,7 +8,7 @@ public class CardInventoryController<T, U> : Controller<T, U> where T : Inventor
 
     protected override void Init()
     {
-        _model.chestOpenController.reloadInventory += FillInventorySlots;
+        _model.data.reloadInventory += FillInventorySlots;
         FillInventorySlots();
     }
 

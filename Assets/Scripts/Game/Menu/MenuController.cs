@@ -33,6 +33,7 @@ public class MenuController<T, U> : Controller<T, U> where T : MenuView where U 
     {
         if(isAnimationStart == false)
         {
+            _view.buttonAudio.Play();
             MarkButtonDisable();
             MarkButtonEnabled(button);
             SwitchScreens(screen);
@@ -70,17 +71,21 @@ public class MenuController<T, U> : Controller<T, U> where T : MenuView where U 
     {
         while (screen.alpha > 0)
         {
-            screen.alpha -= 0.05f;
-            await UniTask.Delay(10);
+            screen.alpha -= 0.08f;
+            await UniTask.Delay(5);
         }
+        screen.gameObject.SetActive(false);
+
     }
 
     private async UniTask ShowScreen(CanvasGroup screen)
     {
+        screen.gameObject.SetActive(true);
+
         while (screen.alpha < 1)
         {
-            screen.alpha += 0.05f;
-            await UniTask.Delay(10);
+            screen.alpha += 0.08f;
+            await UniTask.Delay(5);
         }
     }
 }

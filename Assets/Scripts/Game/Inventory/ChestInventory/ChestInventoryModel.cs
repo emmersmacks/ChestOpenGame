@@ -6,5 +6,4 @@ using UnityEngine;
 public class ChestInventoryModel : ScriptableObject, IModel
 {
     internal PlayerDataController data;
-    internal ChestOpenController<ChestOpenView, ChestOpenModel> chestOpenController;
 }

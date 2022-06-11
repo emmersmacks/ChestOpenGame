@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cysharp.Threading.Tasks;
 
 public class ShopController<T, U>: Controller<T, U> where T : ShopView where U : ShopModel
 {
     public ShopController(T view, U model) : base(view, model){}
-
+    bool canBuy = true;
     protected override void Init()
     {
         base.Init();
@@ -29,40 +30,33 @@ public class ShopController<T, U>: Controller<T, U> where T : ShopView where U :
 
     private void BuyKey(ChestInfo itemInfo)
     {
-        if (itemInfo.price <= _model.data.Data.Token)
+        _view.buttonSound.Play();
+        if(canBuy)
         {
-            Debug.Log("Buyed");
-            _model.data.DebitingToken(itemInfo.price);
-            _model.data.DepositKey(1);
+            if (itemInfo.price <= _model.data.Data.Token)
+            {
+                Debug.Log("Buyed");
+                _model.data.DebitingToken(itemInfo.price);
+                _model.data.DepositKey(1);
+                DestroyEffect();
+            }
         }
+        
     }
 
-    private void BuyChest(ChestInfo itemInfo)
+    private async UniTask DestroyEffect()
     {
-        if(itemInfo.price <= _model.data.Data.Token)
+        canBuy = false;
+        while(_view.effect.alpha < 1)
         {
-            _model.data.DebitingToken(itemInfo.price);
-            CheckOnDuplicate(itemInfo);
-            _model.chestInventoryController.FillInventorySlots();
+            _view.effect.alpha += 0.05f ;
+            await UniTask.Delay(10);
         }
-    }
-
-    private void CheckOnDuplicate(ChestInfo itemInfo)
-    {
-        var duplicate = GetItemDuplicateInInventory(itemInfo);
-        if (duplicate != null)
-            duplicate._count++;
-        else
-            _model.data.Data.ChestInventory.Add(itemInfo);
-    }
-
-    private ChestInfo GetItemDuplicateInInventory(ChestInfo item)
-    {
-        foreach(var inventoryItem in _model.data.Data.ChestInventory)
+        while (_view.effect.alpha > 0)
         {
-            if(inventoryItem.chestName == item.chestName)
-                return inventoryItem;
+            _view.effect.alpha -= 0.05f;
+            await UniTask.Delay(10);
         }
-        return null;
+        canBuy = true;
     }
 }

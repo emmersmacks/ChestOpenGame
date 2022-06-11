@@ -6,10 +6,13 @@ public class ChestInventoryController<T, U> : Controller<T, U> where T : Invento
 {
     public ChestInventoryController(T view, U model) : base(view, model){}
 
+    public ChestOpenController<ChestOpenView, ChestOpenModel> chestOpenController { get; set; }
+
     protected override void Init()
     {
         base.Init();
-        _model.chestOpenController.reloadInventory += FillInventorySlots;
+        _model.data.reloadInventory += FillInventorySlots;
+
         FillInventorySlots();
     }
 
@@ -23,8 +26,7 @@ public class ChestInventoryController<T, U> : Controller<T, U> where T : Invento
             var slotView = slot.GetComponent<InventoryChestSlotView>();
             slotView.preview.sprite = item.chestSprite;
             slotView.chest = item;
-            slotView.countText.text = item._count.ToString();
-            slotView.button.onClick.AddListener(delegate { StartOpenScript(slotView.chest); });
+            slotView.button.onClick.AddListener(delegate { StartOpenScript(slotView); });
             count++;
         }
     }
@@ -37,12 +39,18 @@ public class ChestInventoryController<T, U> : Controller<T, U> where T : Invento
             currentSlot.preview.sprite = _view.slotsBackground;
             currentSlot.chest = null;
             currentSlot.button.onClick.RemoveAllListeners();
-            currentSlot.countText.text = 0.ToString();
         }
     }
 
-    private void StartOpenScript(ChestInfo chest)
+    private void StartOpenScript(InventoryChestSlotView slot)
     {
-        _model.chestOpenController.ShowOpenScreen(chest);
+        var model = Resources.Load<ChestOpenModel>("ChestOpenModel");
+        model.slotView = slot;
+        model.currentChest = slot.chest;
+        model.data = _model.data;
+        model.inventory = _view.grid;
+
+        chestOpenController = new ChestOpenController<ChestOpenView, ChestOpenModel>(_view.chestOpenView, model);
+        
     }
 }

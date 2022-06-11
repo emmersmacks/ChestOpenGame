@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class ApplicationController : MonoBehaviour
 {
-    private UIController _uiController;
-    private PlayerDataController _dataController;
-    private MenuController<MenuView, MenuModel> _menuController;
-    private ShopController<ShopView, ShopModel> _shopController;
-    private CardInventoryController<InventoryView, CardInventoryModel> _cardInventoryController;
-    private ChestInventoryController<InventoryView, ChestInventoryModel> _chestInventoryController;
-    private CardController _cardController;
-    private ChestOpenController<ChestOpenView, ChestOpenModel> _chestOpenController;
+    internal UIController _uiController;
+    internal PlayerDataController _dataController;
+    internal MenuController<MenuView, MenuModel> _menuController;
+    internal ShopController<ShopView, ShopModel> _shopController;
+    internal CardInventoryController<InventoryView, CardInventoryModel> _cardInventoryController;
+    internal ChestInventoryController<InventoryView, ChestInventoryModel> _chestInventoryController;
+    internal HoldersController<InventoryView, HoldersModel> _holdersController;
 
-    [SerializeField] private List<CardInfo> allCards;
     [SerializeField] private ChestInfo defaultChest;
 
     private void Start()
@@ -29,10 +27,9 @@ public class ApplicationController : MonoBehaviour
     {
         _menuController = GetComponent<MenuApplication>().InstantiateApplication();
         _shopController = GetComponent<ShopApplication>().InstanceApplication(_dataController);
-        _cardController = new CardController(allCards);
-        _chestOpenController = GetComponent<ChestOpenApplication>().InstanceApplication(_dataController, _cardController);
-        _cardInventoryController = GetComponent<CardInventoryApplication>().InstanceApplication(_dataController, _chestOpenController);
-        _chestInventoryController = GetComponent<ChestInventoryApplication>().InstanceApplication(_dataController, _chestOpenController);
+        _cardInventoryController = GetComponent<CardInventoryApplication>().InstanceApplication(_dataController);
+        _chestInventoryController = GetComponent<ChestInventoryApplication>().InstanceApplication(_dataController);
+        _holdersController = GetComponent<HoldersInventoryApplication>().InstanceApplication(_dataController);
     }
 
     private void OnDestroy()

@@ -9,10 +9,9 @@ public class CardInventoryApplication : MonoBehaviour, IApplication
 
     private CardInventoryController<InventoryView, CardInventoryModel> _cardInventoryController;
 
-    public CardInventoryController<InventoryView, CardInventoryModel> InstanceApplication(PlayerDataController data, ChestOpenController<ChestOpenView, ChestOpenModel> chestOpenController)
+    public CardInventoryController<InventoryView, CardInventoryModel> InstanceApplication(PlayerDataController data)
     {
         _model.data = data;
-        _model.chestOpenController = chestOpenController;
         _cardInventoryController = new CardInventoryController<InventoryView, CardInventoryModel>(_view, _model);
         return _cardInventoryController;
     }

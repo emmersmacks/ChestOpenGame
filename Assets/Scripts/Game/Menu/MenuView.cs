@@ -10,4 +10,6 @@ public class MenuView : MonoBehaviour, IView
     [SerializeField] internal GameObject shopScreen;
     [SerializeField] internal GameObject cardInventoryScreen;
     [SerializeField] internal GameObject chestInventoryScreen;
+
+    [SerializeField] internal AudioSource buttonAudio;
 }

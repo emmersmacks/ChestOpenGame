@@ -10,7 +10,7 @@ public class PlayerDataController
     public PlayerData Data { get; set; }
 
     private UIController _ui;
-
+    public Action reloadInventory = default;
     public PlayerDataController(UIController ui)
     {
         _ui = ui;
@@ -38,13 +38,6 @@ public class PlayerDataController
         _ui.UpdateMasterKeyPanel(this);
     }
 
-    public void DebitingDiamond(int number)
-    {
-        if (Data.Diamond >= number)
-            Data.Diamond -= number;
-        _ui.UpdateDiamondPanel(this);
-    }
-
     public void DepositKey(int number)
     {
         Data.Keys += number;
@@ -55,12 +48,6 @@ public class PlayerDataController
     {
         Data.Token += number;
         _ui.UpdateTokenPanel(this);
-    }
-
-    public void DepositDiamond(int number)
-    {
-        Data.Diamond += number;
-        _ui.UpdateDiamondPanel(this);
     }
 
     public void DepositMasterKey(int number)
@@ -96,6 +83,8 @@ public class PlayerDataController
         Data.MasterKeys = 5;
         Data.CardInventory = new List<CardInfo>();
         Data.ChestInventory = new List<ChestInfo>();
+        Data.BonusCombinationInventory = new List<BonusCombinationInfo>();
+        _ui.ArrowTrainingStart();
     }
 }
 
@@ -108,6 +97,7 @@ public class PlayerData
 
     public List<ChestInfo> ChestInventory { get; set; }
     public List<CardInfo> CardInventory { get; set; }
+    public List<BonusCombinationInfo> BonusCombinationInventory { get; set; }
 
     public DateTime LastExitTime { get; set; }
 }
