@@ -12,3 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf104939d552234a9c5d500a7964b4e, type: 3}
   m_Name: CardsInventoryModel
   m_EditorClassIdentifier: 
+  cardPrefab: {fileID: 2332765390023495516, guid: c10c97ce0321218458b2369bebee61db, type: 3}

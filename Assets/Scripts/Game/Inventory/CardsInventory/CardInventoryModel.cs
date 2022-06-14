@@ -7,4 +7,5 @@ public class CardInventoryModel : ScriptableObject, IModel
 {
     internal PlayerDataController data;
     internal ChestOpenController<ChestOpenView, ChestOpenModel> chestOpenController;
+    [SerializeField] internal GameObject cardPrefab;
 }

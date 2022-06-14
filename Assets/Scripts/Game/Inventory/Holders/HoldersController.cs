@@ -65,6 +65,5 @@ public class HoldersController<T, U> : Controller<T, U> where T : InventoryView 
         {
             UIAnimations.SlideToPointAnimation(_view.cardPositions.transform.GetChild(i).gameObject.transform.position, _view.currentCard.transform.GetChild(i).gameObject.transform);
         }
-
     }
 }

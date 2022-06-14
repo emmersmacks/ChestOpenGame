@@ -58,7 +58,8 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
         _model.slotView.transform.parent = _model.inventory.transform;
         _model.slotView.transform.SetSiblingIndex(0);
-        
+        _model.data.reloadInventory();
+
         _view.gameObject.SetActive(false);
         _model.slotView.button.enabled = true;
     }

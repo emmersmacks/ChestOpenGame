@@ -67,9 +67,11 @@
     <Compile Include="Assets\Scripts\Applications\ChestInventoryApplication.cs" />
     <Compile Include="Assets\Scripts\Game\Shop\ShopSlotView.cs" />
     <Compile Include="Assets\Scripts\Game\ChestOpen\ChestOpenWindowControllers\ChestOpenController.cs" />
+    <Compile Include="Assets\Scripts\Game\Training\TrainingController.cs" />
     <Compile Include="Assets\Scripts\Data\CardView.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csAnimationSpin.cs" />
     <Compile Include="Assets\Scripts\Game\Inventory\ChestInventory\ChestInventoryController.cs" />
+    <Compile Include="Assets\Scripts\Game\Training\TrainingModel.cs" />
     <Compile Include="Assets\Scripts\Game\Inventory\ChestInventory\ChestInventoryModel.cs" />
     <Compile Include="Assets\Scripts\Game\Shop\ShopController.cs" />
     <Compile Include="Assets\Scripts\Data\BonusCombinationInfo.cs" />
@@ -83,6 +85,7 @@
     <Compile Include="Assets\Scripts\Game\ChestOpen\ChestOpenWindowControllers\ChestOpenView.cs" />
     <Compile Include="Assets\Scripts\Game\Inventory\CardsInventory\CardInventoryModel.cs" />
     <Compile Include="Assets\Scripts\Game\Inventory\CardsInventory\CardInventoryController.cs" />
+    <Compile Include="Assets\Scripts\Game\OrientationController.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csMouseOrbit.cs" />
     <Compile Include="Assets\Scripts\Game\Inventory\Holders\HoldersSlotView.cs" />
     <Compile Include="Assets\Scripts\MVC\IModel.cs" />
@@ -101,6 +104,7 @@
     <Compile Include="Assets\Scripts\MVC\Controller.cs" />
     <Compile Include="Assets\Scripts\Applications\DataApplication.cs" />
     <Compile Include="Assets\Scripts\Game\UI\PanelsView.cs" />
+    <Compile Include="Assets\Scripts\Game\Training\TrainingView.cs" />
     <Compile Include="Assets\Scripts\Applications\ShopApplication.cs" />
     <Compile Include="Assets\Scripts\Game\ChestOpen\CardRandomizer.cs" />
     <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectEditor.cs" />
@@ -109,9 +113,7 @@
     <Compile Include="Assets\Scripts\Applications\UIApplication.cs" />
     <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csDestroyEffect.cs" />
-    <Compile Include="Assets\Scripts\Game\Training\TrainingController.cs" />
-    <Compile Include="Assets\Scripts\Game\Training\TrainingView.cs" />
-    <Compile Include="Assets\Scripts\Game\Training\TrainingModel.cs" />
+    <Compile Include="Assets\Scripts\CameraAspect.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
