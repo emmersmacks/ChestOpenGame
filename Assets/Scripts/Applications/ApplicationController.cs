@@ -8,9 +8,9 @@ public class ApplicationController : MonoBehaviour
     internal PlayerDataController _dataController;
     internal MenuController<MenuView, MenuModel> _menuController;
     internal ShopController<ShopView, ShopModel> _shopController;
-    internal CardInventoryController<InventoryView, CardInventoryModel> _cardInventoryController;
-    internal ChestInventoryController<InventoryView, ChestInventoryModel> _chestInventoryController;
-    internal HoldersController<InventoryView, HoldersModel> _holdersController;
+    internal CardInventoryController<CardsInventoryView, CardInventoryModel> _cardInventoryController;
+    internal ChestInventoryController<ChestInventoryView, ChestInventoryModel> _chestInventoryController;
+    internal HoldersInventoryController<HoldersInventoryView, HoldersModel> _holdersController;
 
     [SerializeField] private ChestInfo defaultChest;
 

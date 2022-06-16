@@ -34,7 +34,7 @@ public static class UIAnimations
 
     public static async UniTask ScaleZoom(Transform transform)
     {
-        var tween = transform.DOScale(3,0.5f);
+        var tween = transform.DOScale(2f ,0.5f);
         await tween.AsyncWaitForCompletion();
     }
 

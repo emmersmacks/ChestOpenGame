@@ -4,14 +4,14 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 
-public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowView where U : CardsShowModel
+public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowView where U : CardsDataBase
 {
     public CardsShowController(T view, U model) : base(view, model){}
 
     protected override void Init()
     {
         base.Init();
-        _model.cardRandomizer = new CardRandomizer(_model.allCards, _model.bonusCombinations);
+        _model.cardRandomizer = new CardRandomizerModule(_model.allCards, _model.bonusCombinations);
     }
 
     private void EnableGoldenBorderInCards()
@@ -26,7 +26,7 @@ public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowVie
         var card = _model.cardRandomizer.GetRandomCard();
         await StartCardsShowContinuity(card, 1);
         _model.data.Data.CardInventory.Add(card);
-
+        await UniTask.Delay(3000);
         _view.DestroyCurrentCardCombination();
         _view.showCardEffect.SetActive(false);
     }
@@ -67,7 +67,6 @@ public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowVie
         {
             if (type == CombinationType.win)
             {
-                
                 var card = _model.cardRandomizer._currentWinCombination[i];
                 await StartCardsShowContinuity(card, i);
                 _model.data.DepositToken(100);
@@ -75,8 +74,8 @@ public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowVie
             else if (type == CombinationType.bonus)
             {
                 Debug.Log("BonusCombinationInfo");
-                var card = _model.cardRandomizer._currentBonusCombination.cards[i];
-                await StartCardsShowContinuity(card, i);
+                //var card = _model.cardRandomizer._currentBonusCombination.cards[i];
+                //await StartCardsShowContinuity(card, i);
                 EnableGoldenBorderInCards();
             }
             else
@@ -104,12 +103,17 @@ public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowVie
         if (randomIndex < _model.currentChest.winChanceInProcent)
         {
             Debug.Log("Win Combination");
+            _model.data.Statistic.WinNumber++;
             _view.winCombinationAudio.Play();
             return CombinationType.win;
 
         }
         else if (randomIndex < _model.currentChest.bonusChanceInProcaent)
+        {
+            _model.data.Statistic.BonusNumber++;
             return CombinationType.bonus;
+
+        }
         else
             return CombinationType.standart;
     }

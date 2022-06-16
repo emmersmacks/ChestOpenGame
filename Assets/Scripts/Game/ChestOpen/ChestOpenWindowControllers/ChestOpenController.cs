@@ -9,6 +9,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 {
     
     bool buttonAnimation = false;
+    internal InventoryChestSlotView chestOpenSlotView;
 
     public ChestOpenController(T view, U model) : base(view, model){}
 
@@ -21,19 +22,19 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
     public async UniTask ShowOpenScreen()
     {
         FillOpenScreenData();
+        chestOpenSlotView = _view.InstantiateSlotCopy(_model.slotView);
+        chestOpenSlotView.preview.sprite = _model.currentChest.chestSprite;
+        chestOpenSlotView.transform.SetSiblingIndex(0);
         _model.slotView.button.enabled = false;
-
-        _model.slotView.defaultPosition = _model.slotView.transform.position;
+        chestOpenSlotView.defaultPosition = _model.slotView.transform.position;
         _model.defaultButtonPosition = _view.buttons.transform.position;
-        _model.slotView.transform.parent = _view.transform;
         _view.gameObject.SetActive(true);
-        _model.slotView.transform.SetSiblingIndex(0);
-        UIAnimations.SlideToPointAnimation(Vector3.zero, _model.slotView.transform);
+        UIAnimations.SlideToPointAnimation(Vector3.zero, chestOpenSlotView.transform);
         UIAnimations.FadeColorToDark(_view.GetComponent<Image>());
         _view.openChestAudio.Play();
-        await UIAnimations.ScaleZoom(_model.slotView.transform);
+        await UIAnimations.ScaleZoom(chestOpenSlotView.transform);
         UIAnimations.SlideToPointAnimation(new Vector3(0, _view.buttons.transform.position.y, 0), _view.buttons.transform);
-        await UIAnimations.SlideToPointAnimation(_model.slotView.zoomPozitionPreview.position, _model.slotView.preview.transform);
+        await UIAnimations.SlideToPointAnimation(chestOpenSlotView.zoomPozitionPreview.position, chestOpenSlotView.preview.transform);
         _view.closeButton.gameObject.SetActive(true);
     }
 
@@ -50,32 +51,28 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
         _view.buttonAudio.Play();
         _view.closeButton.gameObject.SetActive(false);
         
-        UIAnimations.SlideToPointAnimation(_model.slotView.defaultPosition, _model.slotView.transform);
+        UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPosition, chestOpenSlotView.transform);
         UIAnimations.FadeColorToWhite(_view.GetComponent<Image>());
         UIAnimations.SlideToPointAnimation(new Vector3(_model.defaultButtonPosition.x, 0, 0), _view.buttons.transform);
-        await UIAnimations.ScaleMinimaze(_model.slotView.transform);
-        await UIAnimations.SlideToPointAnimation(_model.slotView.defaultPositionPreview.position, _model.slotView.preview.transform);
+        await UIAnimations.ScaleMinimaze(chestOpenSlotView.transform);
+        await UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPositionPreview.position, chestOpenSlotView.preview.transform);
 
-        _model.slotView.transform.parent = _model.inventory.transform;
-        _model.slotView.transform.SetSiblingIndex(0);
         _model.data.reloadInventory();
 
         _view.gameObject.SetActive(false);
         _model.slotView.button.enabled = true;
+        _view.DestroySlotCopy(chestOpenSlotView);
     }
 
     public async UniTask MinimizeOpenScreen()
     {
         _view.closeButton.gameObject.SetActive(false);
 
-        UIAnimations.SlideToPointAnimation(_model.slotView.defaultPosition, _model.slotView.transform);
+        UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPosition, chestOpenSlotView.transform);
         UIAnimations.SlideToPointAnimation(new Vector3(_model.defaultButtonPosition.x, 0, 0), _view.buttons.transform);
-        await UIAnimations.ScaleMinimaze(_model.slotView.transform);
-        await UIAnimations.SlideToPointAnimation(_model.slotView.defaultPositionPreview.position, _model.slotView.preview.transform);
-
-        _model.slotView.transform.parent = _model.inventory.transform;
-        _model.slotView.transform.SetSiblingIndex(0);
-
+        await UIAnimations.ScaleMinimaze(chestOpenSlotView.transform);
+        await UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPositionPreview.position, chestOpenSlotView.preview.transform);
+        chestOpenSlotView.gameObject.SetActive(false);
         _model.slotView.button.enabled = true;
     }
 
@@ -129,13 +126,16 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
 
     private async UniTask ShowCards(bool isCrack)
     {
+        _view.cardShowView.gameObject.SetActive(true);
         var cardShowController = GetCardShowController();
 
         _view.openChestEffect.SetActive(true);
         await MinimizeOpenScreen();
+        _model.data.Statistic.ChestOpenNumber++;
 
         if (_model.currentChest.chestName == _model.upgradeChest.chestName)
         {
+            _view.misteryBoxAudio.Play();
             await cardShowController.StartMisteryBoxShow();
             DeleteMisteryBoxInInventory();
         }
@@ -147,6 +147,7 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
         _model.data.reloadInventory();
         await CloseOpenScreen();
         _view.openChestEffect.SetActive(false);
+        _view.cardShowView.gameObject.SetActive(false);
     }
 
     public void DeleteMisteryBoxInInventory()
@@ -164,8 +165,9 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
     public async UniTask ChestUpgrade()
     {
         _view.buttonAudio.Play();
-        if (!CheckChestContain(_model.upgradeChest))
+        if (!CheckChestContain(_model.upgradeChest) && _model.data.Data.Token >= 10)
         {
+            _model.data.DebitingToken(10);
             _model.data.Data.ChestInventory.Add(_model.upgradeChest);
             _view.upgradeButton.gameObject.SetActive(false);
             CloseOpenScreen();
@@ -189,13 +191,13 @@ public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenVie
         return false;
     }
 
-    private CardsShowController<CardsShowView, CardsShowModel> GetCardShowController()
+    private CardsShowController<CardsShowView, CardsDataBase> GetCardShowController()
     {
-        var cardShowModel = Resources.Load<CardsShowModel>("CardsShowModel");
+        var cardShowModel = Resources.Load<CardsDataBase>("CardsDataBase");
         cardShowModel.data = _model.data;
         cardShowModel.currentChest = _model.currentChest;
         var cardShowView = _view.cardShowView;
-        var controller = new CardsShowController<CardsShowView, CardsShowModel> (cardShowView, cardShowModel);
+        var controller = new CardsShowController<CardsShowView, CardsDataBase> (cardShowView, cardShowModel);
         return controller;
     }
 }

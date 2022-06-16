@@ -35,6 +35,7 @@ public class ShopController<T, U>: Controller<T, U> where T : ShopView where U :
         {
             if (itemInfo.price <= _model.data.Data.Token)
             {
+                _model.data.Statistic.KeyCollectedNumber++;
                 Debug.Log("Buyed");
                 _model.data.DebitingToken(itemInfo.price);
                 _model.data.DepositKey(1);

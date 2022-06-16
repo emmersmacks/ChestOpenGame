@@ -7,5 +7,5 @@ public class ShopModel : ScriptableObject, IModel
 {
     internal PlayerDataController data;
     internal UIController ui;
-    internal ChestInventoryController<InventoryView, ChestInventoryModel> chestInventoryController;
+    internal ChestInventoryController<ChestInventoryView, ChestInventoryModel> chestInventoryController;
 }

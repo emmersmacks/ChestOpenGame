@@ -6,6 +6,7 @@ public class CardsShowView : MonoBehaviour, IView
 {
     [SerializeField] internal GameObject showCardEffect;
     [SerializeField] internal GameObject cardPositions;
+    [SerializeField] internal GameObject cardPosition;
     [SerializeField] internal AudioSource winCombinationAudio;
 
     internal GameObject currentCard;

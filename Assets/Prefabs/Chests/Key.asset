@@ -12,9 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2318243dfe1d3e4a87c74afef2724cb, type: 3}
   m_Name: Key
   m_EditorClassIdentifier: 
-  _chestSprite: {fileID: 21300000, guid: 7f3a0ff6aa9cfe0459d917fdad2e008a, type: 3}
+  _chestSprite: {fileID: 21300000, guid: 9e597f5b10d861345b3fec919a784f42, type: 3}
   _chestName: Key
   _price: 5
-  _count: 1
   winChanceInProcent: 0
   bonusChanceInProcaent: 0

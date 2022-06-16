@@ -16,4 +16,18 @@ public class ChestOpenView : MonoBehaviour, IView
     [SerializeField] internal GameObject buttons;
     [SerializeField] internal AudioSource openChestAudio;
     [SerializeField] internal AudioSource buttonAudio;
+    [SerializeField] internal GameObject slotPref;
+    [SerializeField] internal AudioSource misteryBoxAudio;
+
+    public InventoryChestSlotView InstantiateSlotCopy(InventoryChestSlotView viewSlot)
+    {
+        var newSlot = Instantiate(slotPref, viewSlot.transform.position, Quaternion.identity, transform);
+        var newSlotView = newSlot.GetComponent<InventoryChestSlotView>();
+        return newSlotView;
+    }
+
+    public void DestroySlotCopy(InventoryChestSlotView viewSlot)
+    {
+        Destroy(viewSlot.gameObject);
+    }
 }

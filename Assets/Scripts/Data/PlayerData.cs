@@ -8,6 +8,7 @@ public class PlayerDataController
 {
     private const string dataPath = "/PlayerData";
     public PlayerData Data { get; set; }
+    public PlayerStatistic Statistic { get; set; }
 
     private UIController _ui;
     public Action reloadInventory = default;
@@ -72,9 +73,10 @@ public class PlayerDataController
     public void SetDefoultValues()
     {
         if(Data == null)
-        {
             Data = new PlayerData();
-        }
+
+        if(Statistic == null)
+            Statistic = new PlayerStatistic();
 
         Debug.Log("First start");
         Data.Token = 100;
@@ -86,6 +88,72 @@ public class PlayerDataController
         Data.BonusCombinationInventory = new List<BonusCombinationInfo>();
         _ui.ArrowTrainingStart();
     }
+}
+
+public class PlayerStatistic
+{
+    private int _chestOpenNumber;
+    private int _tokenCollectedNumber;
+    private int _keycollectedNumber;
+    private int _winNumber;
+    private int _bonusNumber;
+    public int ChestOpenNumber
+    {
+        get { return _chestOpenNumber; }
+        set
+        {
+            _chestOpenNumber = value;
+            ChangeStatistic();
+
+        }
+    }
+
+    public int TokenCollectedNumber
+    {
+        get { return _tokenCollectedNumber; }
+        set
+        {
+            _tokenCollectedNumber = value;
+            ChangeStatistic();
+
+        }
+    }
+
+    public int KeyCollectedNumber
+    {
+        get { return _keycollectedNumber; }
+        set
+        {
+            _keycollectedNumber = value;
+            ChangeStatistic();
+
+        }
+    }
+
+    public int WinNumber
+    {
+        get { return _winNumber; }
+        set
+        {
+            _winNumber = value;
+            ChangeStatistic();
+
+        }
+    }
+
+    public int BonusNumber 
+    { 
+        get { return _bonusNumber; } 
+        set 
+        { 
+            _bonusNumber = value;
+            ChangeStatistic();
+
+        }
+    }
+
+    public Action ChangeStatistic = default;
+
 }
 
 public class PlayerData
