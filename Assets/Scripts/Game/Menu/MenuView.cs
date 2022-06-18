@@ -1,15 +1,19 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MenuView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal Button cardInventoryButton;
-    [SerializeField] internal Button chestInventoryButton;
-    [SerializeField] internal Button shopButton;
+    public class MenuView : MonoBehaviour, IView
+    {
+        [SerializeField] internal Button CardInventoryButton;
+        [SerializeField] internal Button ChestInventoryButton;
+        [SerializeField] internal Button ShopButton;
 
-    [SerializeField] internal GameObject shopScreen;
-    [SerializeField] internal GameObject cardInventoryScreen;
-    [SerializeField] internal GameObject chestInventoryScreen;
+        [SerializeField] internal GameObject ShopScreen;
+        [SerializeField] internal GameObject CardInventoryScreen;
+        [SerializeField] internal GameObject ChestInventoryScreen;
 
-    [SerializeField] internal AudioSource buttonAudio;
+        [SerializeField] internal AudioSource ButtonAudio;
+    }
 }
+

@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
+using ChestGame.Data;
+using ChestGame.Game.Controllers;
 using UnityEngine;
 
-public class DataApplication : MonoBehaviour, IApplication
+namespace ChestGame.Game.Applications
 {
-    internal PlayerDataController dataController;
-
-    public PlayerDataController InstanceApplication(UIController ui)
+    public class DataApplication : MonoBehaviour, IApplication
     {
-        dataController = new PlayerDataController(ui);
-        return dataController;
+        internal PlayerDataController dataController;
+
+        public PlayerDataController InstanceApplication(UIController ui)
+        {
+            dataController = new PlayerDataController(ui);
+            return dataController;
+        }
     }
 }
+

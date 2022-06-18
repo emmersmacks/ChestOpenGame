@@ -1,16 +1,21 @@
+using ChestGame.Game.Module.ScriptableModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryChestSlotView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal Image preview;
-    [SerializeField] internal Button button;
-    [SerializeField] internal Transform defaultPositionPreview;
-    [SerializeField] internal Transform zoomPozitionPreview;
-    
+    public class InventoryChestSlotView : MonoBehaviour, IView
+    {
+        [SerializeField] internal Image Preview;
+        [SerializeField] internal Button Button;
+        [SerializeField] internal Transform DefaultPositionPreview;
+        [SerializeField] internal Transform ZoomPozitionPreview;
 
-    internal ChestInfo chest;
-    internal Vector3 defaultPosition;
+
+        internal ChestInfo Chest;
+        internal Vector3 DefaultPosition;
+    }
 }
+

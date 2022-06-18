@@ -2,44 +2,48 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardsShowView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal GameObject showCardEffect;
-    [SerializeField] internal GameObject cardPositions;
-    [SerializeField] internal GameObject cardPosition;
-    [SerializeField] internal AudioSource winCombinationAudio;
-
-    internal GameObject currentCard;
-    internal GameObject currentWinCombinationPref;
-    internal List<GameObject> currentCardsCombination;
-
-    public void InstantiateNewCard(GameObject cardPref)
+    public class CardsShowView : MonoBehaviour, IView
     {
-        currentCard = Instantiate(cardPref, new Vector2(0, -9), Quaternion.identity, transform.parent);
+        [SerializeField] internal GameObject ShowCardEffect;
+        [SerializeField] internal GameObject CardPositions;
+        [SerializeField] internal GameObject CardPosition;
+        [SerializeField] internal AudioSource WinCombinationAudio;
 
-        if (currentCardsCombination == null)
-            currentCardsCombination = new List<GameObject>();
+        internal GameObject CurrentCard;
+        internal GameObject CurrentWinCombinationPref;
+        internal List<GameObject> CurrentCardsCombination;
 
-        currentCardsCombination.Add(currentCard);
+        public void InstantiateNewCard(GameObject cardPref)
+        {
+            CurrentCard = Instantiate(cardPref, new Vector2(0, -9), Quaternion.identity, transform.parent);
+
+            if (CurrentCardsCombination == null)
+                CurrentCardsCombination = new List<GameObject>();
+
+            CurrentCardsCombination.Add(CurrentCard);
+        }
+
+        public void InstantiateCardWinCombination(GameObject winCombinationPref)
+        {
+            CurrentWinCombinationPref = Instantiate(winCombinationPref, new Vector2(0, 0), Quaternion.identity, transform);
+        }
+
+        public void DestroyCurrentCardCombination()
+        {
+            if (CurrentCardsCombination != null)
+                foreach (var card in CurrentCardsCombination)
+                    if (card != null)
+                        Destroy(card);
+            CurrentCardsCombination = null;
+        }
+
+        public void DestroyCurrentWinCombination()
+        {
+            Destroy(CurrentWinCombinationPref);
+        }
+
     }
-
-    public void InstantiateCardWinCombination(GameObject winCombinationPref)
-    {
-        currentWinCombinationPref = Instantiate(winCombinationPref, new Vector2(0, 0), Quaternion.identity, transform);
-    }
-
-    public void DestroyCurrentCardCombination()
-    {
-        if (currentCardsCombination != null)
-            foreach (var card in currentCardsCombination)
-                if (card != null)
-                    Destroy(card);
-        currentCardsCombination = null;
-    }
-
-    public void DestroyCurrentWinCombination()
-    {
-        Destroy(currentWinCombinationPref);
-    }
-
 }
+

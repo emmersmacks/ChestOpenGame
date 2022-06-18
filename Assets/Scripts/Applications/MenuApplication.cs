@@ -1,16 +1,23 @@
+using ChestGame.Game.Controllers;
+using ChestGame.Game.Models;
+using ChestGame.Game.View;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MenuApplication : MonoBehaviour, IApplication
+namespace ChestGame.Game.Applications
 {
-    [SerializeField] private MenuView _view;
-    [SerializeField] private MenuModel _model;
-    internal MenuController<MenuView, MenuModel> _menuController;
-
-    public MenuController<MenuView, MenuModel> InstantiateApplication()
+    public class MenuApplication : MonoBehaviour, IApplication
     {
-        _menuController = new MenuController<MenuView, MenuModel>(_view, _model);
-        return _menuController;
+        [SerializeField] private MenuView _view;
+        [SerializeField] private MenuModel _model;
+        internal MenuController<MenuView, MenuModel> _menuController;
+
+        public MenuController<MenuView, MenuModel> InstantiateApplication()
+        {
+            _menuController = new MenuController<MenuView, MenuModel>(_view, _model);
+            return _menuController;
+        }
     }
 }
+

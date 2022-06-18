@@ -1486,10 +1486,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4633cbfad67cb45b83127117dc13c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showCardEffect: {fileID: 1171790276}
-  cardPositions: {fileID: 117939350}
-  cardPosition: {fileID: 0}
-  winCombinationAudio: {fileID: 901257656}
+  ShowCardEffect: {fileID: 0}
+  CardPositions: {fileID: 0}
+  CardPosition: {fileID: 0}
+  WinCombinationAudio: {fileID: 0}
 --- !u!1 &148074955
 GameObject:
   m_ObjectHideFlags: 0
@@ -12897,11 +12897,6 @@ MonoBehaviour:
   SecondCardPreview: {fileID: 2141057771}
   ThirdCardPreview: {fileID: 872683028}
   timerModule: {fileID: 0}
---- !u!1 &1171790276 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100010, guid: bf73c6d90c4e0634ba969c77df2d9b63, type: 3}
-  m_PrefabInstance: {fileID: 739292966}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1173920263
 GameObject:
   m_ObjectHideFlags: 0
@@ -17063,18 +17058,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82f2c4733154544478c511235d73e20b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hackButton: {fileID: 149219172}
-  openButton: {fileID: 841778010}
-  closeButton: {fileID: 1778037556}
-  upgradeButton: {fileID: 767075939}
-  preview: {fileID: 476560171}
-  cardShowView: {fileID: 141481138}
-  openChestEffect: {fileID: 1843365857}
-  buttons: {fileID: 469273236}
-  openChestAudio: {fileID: 692798711}
-  buttonAudio: {fileID: 1196579887}
-  slotPref: {fileID: 7868922585394975473, guid: bc9667f1014114a49854a5b05929de19, type: 3}
-  misteryBoxAudio: {fileID: 1723120053}
+  HackButton: {fileID: 149219172}
+  OpenButton: {fileID: 841778010}
+  CloseButton: {fileID: 1778037556}
+  UpgradeButton: {fileID: 767075939}
+  Preview: {fileID: 476560171}
+  CardShowView: {fileID: 141481138}
+  OpenChestEffect: {fileID: 1843365857}
+  Buttons: {fileID: 469273236}
+  OpenChestAudio: {fileID: 692798711}
+  ButtonAudio: {fileID: 1196579887}
+  SlotPref: {fileID: 7868922585394975473, guid: bc9667f1014114a49854a5b05929de19, type: 3}
+  MisteryBoxAudio: {fileID: 1723120053}
 --- !u!114 &1614874022
 MonoBehaviour:
   m_ObjectHideFlags: 0

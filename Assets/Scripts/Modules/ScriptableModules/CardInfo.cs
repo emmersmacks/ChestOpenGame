@@ -4,9 +4,13 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "CardInfo")]
-public class CardInfo : ScriptableObject
+namespace ChestGame.Game.Module.ScriptableModule
 {
-    [SerializeField] private Sprite _cardSprite;
-    public Sprite cardSprite => this._cardSprite;
+    [CreateAssetMenu(fileName = "CardInfo")]
+    public class CardInfo : ScriptableObject
+    {
+        [SerializeField] private Sprite _cardSprite;
+        public Sprite CardSprite => this._cardSprite;
+    }
 }
+

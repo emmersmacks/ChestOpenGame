@@ -1,9 +1,14 @@
+using ChestGame.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ChestInventoryModel")]
-public class ChestInventoryModel : ScriptableObject, IModel
+namespace ChestGame.Game.Models
 {
-    internal PlayerDataController data;
+    [CreateAssetMenu(fileName = "ChestInventoryModel")]
+    public class ChestInventoryModel : ScriptableObject, IModel
+    {
+        internal PlayerDataController Data;
+    }
 }
+

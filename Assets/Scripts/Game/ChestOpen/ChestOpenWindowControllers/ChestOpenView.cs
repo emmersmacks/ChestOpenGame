@@ -3,31 +3,35 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ChestOpenView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    
-    [SerializeField] internal Button hackButton;
-    [SerializeField] internal Button openButton;
-    [SerializeField] internal Button closeButton;
-    [SerializeField] internal Button upgradeButton;
-    [SerializeField] internal Image preview;
-    [SerializeField] internal CardsShowView cardShowView;
-    [SerializeField] internal GameObject openChestEffect;
-    [SerializeField] internal GameObject buttons;
-    [SerializeField] internal AudioSource openChestAudio;
-    [SerializeField] internal AudioSource buttonAudio;
-    [SerializeField] internal GameObject slotPref;
-    [SerializeField] internal AudioSource misteryBoxAudio;
-
-    public InventoryChestSlotView InstantiateSlotCopy(InventoryChestSlotView viewSlot)
+    public class ChestOpenView : MonoBehaviour, IView
     {
-        var newSlot = Instantiate(slotPref, viewSlot.transform.position, Quaternion.identity, transform);
-        var newSlotView = newSlot.GetComponent<InventoryChestSlotView>();
-        return newSlotView;
-    }
 
-    public void DestroySlotCopy(InventoryChestSlotView viewSlot)
-    {
-        Destroy(viewSlot.gameObject);
+        [SerializeField] internal Button HackButton;
+        [SerializeField] internal Button OpenButton;
+        [SerializeField] internal Button CloseButton;
+        [SerializeField] internal Button UpgradeButton;
+        [SerializeField] internal Image Preview;
+        [SerializeField] internal CardsShowView CardShowView;
+        [SerializeField] internal GameObject OpenChestEffect;
+        [SerializeField] internal GameObject Buttons;
+        [SerializeField] internal AudioSource OpenChestAudio;
+        [SerializeField] internal AudioSource ButtonAudio;
+        [SerializeField] internal GameObject SlotPref;
+        [SerializeField] internal AudioSource MisteryBoxAudio;
+
+        public InventoryChestSlotView InstantiateSlotCopy(InventoryChestSlotView viewSlot)
+        {
+            var newSlot = Instantiate(SlotPref, viewSlot.transform.position, Quaternion.identity, transform);
+            var newSlotView = newSlot.GetComponent<InventoryChestSlotView>();
+            return newSlotView;
+        }
+
+        public void DestroySlotCopy(InventoryChestSlotView viewSlot)
+        {
+            Destroy(viewSlot.gameObject);
+        }
     }
 }
+

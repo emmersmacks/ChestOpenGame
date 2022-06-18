@@ -3,16 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StatisticView : MonoBehaviour
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal Text openChestCount;
-    [SerializeField] internal Text tokenCollectedCount;
-    [SerializeField] internal Text keyCollectedCount;
-    [SerializeField] internal Text winCount;
-    [SerializeField] internal Text bonusCombinationsCount;
-
-    public void SetTextInField(Text field, string text)
+    public class StatisticView : MonoBehaviour
     {
-        field.text = text;
+        [SerializeField] internal Text OpenChestCount;
+        [SerializeField] internal Text TokenCollectedCount;
+        [SerializeField] internal Text KeyCollectedCount;
+        [SerializeField] internal Text WinCount;
+        [SerializeField] internal Text BonusCombinationsCount;
+
+        public void SetTextInField(Text field, string text)
+        {
+            field.text = text;
+        }
     }
 }
+

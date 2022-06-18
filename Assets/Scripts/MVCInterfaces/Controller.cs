@@ -2,20 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Controller <T, U>
+namespace ChestGame.Game.Controllers
 {
-    protected T _view;
-    protected U _model;
-
-    public Controller(T view, U model)
+    public abstract class Controller<T, U>
     {
-        _view = view;
-        _model = model;
-        Init();
-    }
+        protected T _view;
+        protected U _model;
 
-    protected virtual void Init()
-    {
-        
+        public Controller(T view, U model)
+        {
+            _view = view;
+            _model = model;
+            Init();
+        }
+
+        protected virtual void Init()
+        {
+
+        }
     }
 }
+

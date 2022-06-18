@@ -4,19 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
+using ChestGame.Game.Animations;
 
-public class LoadGame : MonoBehaviour
+namespace ChestGame.Preloader
 {
-    [SerializeField] Image image;
-    void Start()
+    public class LoadGame : MonoBehaviour
     {
-        ShowScreensaver();
-    }
+        [SerializeField] private Image _image;
+        void Start()
+        {
+            ShowScreensaver();
+        }
 
-    private async UniTask ShowScreensaver()
-    {
-        await UIAnimations.FadeColorToWhite(image);
-        await UniTask.Delay(1000);
-        SceneManager.LoadScene(1);
+        private async UniTask ShowScreensaver()
+        {
+            await UIAnimations.FadeColorToWhite(_image);
+            await UniTask.Delay(1000);
+            SceneManager.LoadScene(1);
+        }
     }
 }
+

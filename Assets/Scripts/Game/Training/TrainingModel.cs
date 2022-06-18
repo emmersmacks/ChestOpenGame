@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TrainingModel : IModel
+namespace ChestGame.Game.Models
 {
+    public class TrainingModel : IModel
+    {
+    }
 }
+

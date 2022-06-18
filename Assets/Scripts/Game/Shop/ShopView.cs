@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ShopView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal CanvasGroup group;
-    [SerializeField] internal Button closeButton;
-    [SerializeField] internal GameObject grid;
-    [SerializeField] internal CanvasGroup effect;
-    [SerializeField] internal AudioSource buttonSound;
+    public class ShopView : MonoBehaviour, IView
+    {
+        [SerializeField] internal CanvasGroup Group;
+        [SerializeField] internal Button CloseButton;
+        [SerializeField] internal GameObject Grid;
+        [SerializeField] internal CanvasGroup Effect;
+        [SerializeField] internal AudioSource ButtonSound;
+    }
 }
+

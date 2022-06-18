@@ -4,206 +4,217 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using UnityEngine.UI;
 using System;
+using ChestGame.Game.Animations;
+using ChestGame.Game.View;
+using ChestGame.Game.Models;
+using ChestGame.Game.Module.ScriptableModule;
+using ChestGame.Data;
 
-public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenView where U : ChestOpenModel
+namespace ChestGame.Game.Controllers
 {
-    
-    bool buttonAnimation = false;
-    internal InventoryChestSlotView chestOpenSlotView;
-
-    public ChestOpenController(T view, U model) : base(view, model){}
-
-    protected override void Init()
+    public class ChestOpenController<T, U> : Controller<T, U> where T : ChestOpenView where U : ChestOpenModel
     {
-        base.Init();
-        ShowOpenScreen();
-    }
 
-    public async UniTask ShowOpenScreen()
-    {
-        FillOpenScreenData();
-        chestOpenSlotView = _view.InstantiateSlotCopy(_model.slotView);
-        chestOpenSlotView.preview.sprite = _model.currentChest.chestSprite;
-        chestOpenSlotView.transform.SetSiblingIndex(0);
-        _model.slotView.button.enabled = false;
-        chestOpenSlotView.defaultPosition = _model.slotView.transform.position;
-        _model.defaultButtonPosition = _view.buttons.transform.position;
-        _view.gameObject.SetActive(true);
-        UIAnimations.SlideToPointAnimation(Vector3.zero, chestOpenSlotView.transform);
-        UIAnimations.FadeColorToDark(_view.GetComponent<Image>());
-        _view.openChestAudio.Play();
-        await UIAnimations.ScaleZoom(chestOpenSlotView.transform);
-        UIAnimations.SlideToPointAnimation(new Vector3(0, _view.buttons.transform.position.y, 0), _view.buttons.transform);
-        await UIAnimations.SlideToPointAnimation(chestOpenSlotView.zoomPozitionPreview.position, chestOpenSlotView.preview.transform);
-        _view.closeButton.gameObject.SetActive(true);
-    }
+        private bool _buttonAnimation = false;
+        internal InventoryChestSlotView ChestOpenSlotView;
 
-    private void UpgradeButtonCheckSwitch()
-    {
-        if (_model.currentChest.chestName != _model.defaultChest.chestName || CheckChestContain(_model.upgradeChest))
-            _view.upgradeButton.gameObject.SetActive(false);
-        else
-            _view.upgradeButton.gameObject.SetActive(true);
-    }
+        public ChestOpenController(T view, U model) : base(view, model) { }
 
-    public async UniTask CloseOpenScreen()
-    {
-        _view.buttonAudio.Play();
-        _view.closeButton.gameObject.SetActive(false);
-        
-        UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPosition, chestOpenSlotView.transform);
-        UIAnimations.FadeColorToWhite(_view.GetComponent<Image>());
-        UIAnimations.SlideToPointAnimation(new Vector3(_model.defaultButtonPosition.x, 0, 0), _view.buttons.transform);
-        await UIAnimations.ScaleMinimaze(chestOpenSlotView.transform);
-        await UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPositionPreview.position, chestOpenSlotView.preview.transform);
-
-        _model.data.reloadInventory();
-
-        _view.gameObject.SetActive(false);
-        _model.slotView.button.enabled = true;
-        _view.DestroySlotCopy(chestOpenSlotView);
-    }
-
-    public async UniTask MinimizeOpenScreen()
-    {
-        _view.closeButton.gameObject.SetActive(false);
-
-        UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPosition, chestOpenSlotView.transform);
-        UIAnimations.SlideToPointAnimation(new Vector3(_model.defaultButtonPosition.x, 0, 0), _view.buttons.transform);
-        await UIAnimations.ScaleMinimaze(chestOpenSlotView.transform);
-        await UIAnimations.SlideToPointAnimation(chestOpenSlotView.defaultPositionPreview.position, chestOpenSlotView.preview.transform);
-        chestOpenSlotView.gameObject.SetActive(false);
-        _model.slotView.button.enabled = true;
-    }
-
-    public void FillOpenScreenData()
-    {
-        _view.closeButton.onClick.RemoveAllListeners();
-        _view.openButton.onClick.RemoveAllListeners();
-        _view.hackButton.onClick.RemoveAllListeners();
-        _view.upgradeButton.onClick.RemoveAllListeners();
-
-        _view.preview.sprite = _model.currentChest.chestSprite;
-        _view.closeButton.onClick.AddListener(delegate { CloseOpenScreen(); });
-        _view.openButton.onClick.AddListener(delegate { OpenStart(false); });
-        _view.hackButton.onClick.AddListener(delegate { OpenStart(true); });
-        _view.upgradeButton.onClick.AddListener(delegate { ChestUpgrade(); });
-        UpgradeButtonCheckSwitch();
-    }
-
-    private async UniTask OpenStart(bool isHack)
-    {
-        _view.buttonAudio.Play();
-        if (!isHack)
+        protected override void Init()
         {
-            if(_model.data.Data.Keys > 0)
-            {
-                _model.data.DebitingKey(1);
-                await ShowCards(false);
-            }
-            else if(!buttonAnimation)
-            {
-                buttonAnimation = true;
-                await UIAnimations.TransformShakeOnX(_view.openButton.transform);
-                buttonAnimation = false;
-            }
-        }
-        else
-        {
-            if(_model.data.Data.MasterKeys > 0)
-            {
-                _model.data.DebitingMasterKey(1);
-                await ShowCards(true);
-            }
-            else if(!buttonAnimation)
-            {
-                buttonAnimation = true;
-                await UIAnimations.TransformShakeOnX(_view.hackButton.transform);
-                buttonAnimation = false;
-            }
-        }
-    }
-
-    private async UniTask ShowCards(bool isCrack)
-    {
-        _view.cardShowView.gameObject.SetActive(true);
-        var cardShowController = GetCardShowController();
-
-        _view.openChestEffect.SetActive(true);
-        await MinimizeOpenScreen();
-        _model.data.Statistic.ChestOpenNumber++;
-
-        if (_model.currentChest.chestName == _model.upgradeChest.chestName)
-        {
-            _view.misteryBoxAudio.Play();
-            await cardShowController.StartMisteryBoxShow();
-            DeleteMisteryBoxInInventory();
-        }
-        else
-        {
-            await cardShowController.StartCardsShow(isCrack);
+            base.Init();
+            ShowOpenScreen();
         }
 
-        _model.data.reloadInventory();
-        await CloseOpenScreen();
-        _view.openChestEffect.SetActive(false);
-        _view.cardShowView.gameObject.SetActive(false);
-    }
-
-    public void DeleteMisteryBoxInInventory()
-    {
-        for (var i = 0; i < _model.data.Data.ChestInventory.Count; i++)
+        public async UniTask ShowOpenScreen()
         {
-            if (_model.data.Data.ChestInventory[i].chestName == _model.currentChest.chestName)
+            FillOpenScreenData();
+            ChestOpenSlotView = _view.InstantiateSlotCopy(_model.SlotView);
+            ChestOpenSlotView.Preview.sprite = _model.CurrentChest.ChestSprite;
+            ChestOpenSlotView.transform.SetSiblingIndex(0);
+            _model.SlotView.Button.enabled = false;
+            ChestOpenSlotView.DefaultPosition = _model.SlotView.transform.position;
+            _model.DefaultButtonPosition = _view.Buttons.transform.position;
+            _view.gameObject.SetActive(true);
+            UIAnimations.SlideToPointAnimation(Vector3.zero, ChestOpenSlotView.transform);
+            UIAnimations.FadeColorToDark(_view.GetComponent<Image>());
+            _view.OpenChestAudio.Play();
+            await UIAnimations.ScaleZoom(ChestOpenSlotView.transform);
+            UIAnimations.SlideToPointAnimation(new Vector3(0, _view.Buttons.transform.position.y, 0), _view.Buttons.transform);
+            await UIAnimations.SlideToPointAnimation(ChestOpenSlotView.ZoomPozitionPreview.position, ChestOpenSlotView.Preview.transform);
+            _view.CloseButton.gameObject.SetActive(true);
+        }
+
+        private void UpgradeButtonCheckSwitch()
+        {
+            if (_model.CurrentChest.ChestName != _model.DefaultChest.ChestName || CheckChestContain(_model.UpgradeChest))
+                _view.UpgradeButton.gameObject.SetActive(false);
+            else
+                _view.UpgradeButton.gameObject.SetActive(true);
+
+            if (_model.CurrentChest.ChestName != _model.DefaultChest.ChestName)
+                _view.HackButton.gameObject.SetActive(false);
+        }
+
+        public async UniTask CloseOpenScreen()
+        {
+            _view.ButtonAudio.Play();
+            _view.CloseButton.gameObject.SetActive(false);
+
+            UIAnimations.SlideToPointAnimation(ChestOpenSlotView.DefaultPosition, ChestOpenSlotView.transform);
+            UIAnimations.FadeColorToWhite(_view.GetComponent<Image>());
+            UIAnimations.SlideToPointAnimation(new Vector3(_model.DefaultButtonPosition.x, 0, 0), _view.Buttons.transform);
+            await UIAnimations.ScaleMinimaze(ChestOpenSlotView.transform);
+            await UIAnimations.SlideToPointAnimation(ChestOpenSlotView.DefaultPositionPreview.position, ChestOpenSlotView.Preview.transform);
+
+            _model.Data.ReloadInventory();
+
+            _view.gameObject.SetActive(false);
+            _model.SlotView.Button.enabled = true;
+            _view.DestroySlotCopy(ChestOpenSlotView);
+        }
+
+        public async UniTask MinimizeOpenScreen()
+        {
+            _view.CloseButton.gameObject.SetActive(false);
+
+            UIAnimations.SlideToPointAnimation(ChestOpenSlotView.DefaultPosition, ChestOpenSlotView.transform);
+            UIAnimations.SlideToPointAnimation(new Vector3(_model.DefaultButtonPosition.x, 0, 0), _view.Buttons.transform);
+            await UIAnimations.ScaleMinimaze(ChestOpenSlotView.transform);
+            await UIAnimations.SlideToPointAnimation(ChestOpenSlotView.DefaultPositionPreview.position, ChestOpenSlotView.Preview.transform);
+            ChestOpenSlotView.gameObject.SetActive(false);
+            _model.SlotView.Button.enabled = true;
+        }
+
+        public void FillOpenScreenData()
+        {
+            _view.CloseButton.onClick.RemoveAllListeners();
+            _view.OpenButton.onClick.RemoveAllListeners();
+            _view.HackButton.onClick.RemoveAllListeners();
+            _view.UpgradeButton.onClick.RemoveAllListeners();
+
+            _view.Preview.sprite = _model.CurrentChest.ChestSprite;
+            _view.CloseButton.onClick.AddListener(delegate { CloseOpenScreen(); });
+            _view.OpenButton.onClick.AddListener(delegate { OpenStart(false); });
+            _view.HackButton.onClick.AddListener(delegate { OpenStart(true); });
+            _view.UpgradeButton.onClick.AddListener(delegate { ChestUpgrade(); });
+            UpgradeButtonCheckSwitch();
+        }
+
+        private async UniTask OpenStart(bool isHack)
+        {
+            _view.ButtonAudio.Play();
+            if (!isHack)
             {
-                _model.data.Data.ChestInventory.RemoveAt(i);
-                break;
+                if (_model.Data.PlayerData.Keys > 0)
+                {
+                    _model.Data.DebitingKey(1);
+                    await ShowCards(false);
+                }
+                else if (!_buttonAnimation)
+                {
+                    _buttonAnimation = true;
+                    await UIAnimations.TransformShakeOnX(_view.OpenButton.transform);
+                    _buttonAnimation = false;
+                }
+            }
+            else
+            {
+                if (_model.Data.PlayerData.MasterKeys > 0)
+                {
+                    _model.Data.DebitingMasterKey(1);
+                    await ShowCards(true);
+                }
+                else if (!_buttonAnimation)
+                {
+                    _buttonAnimation = true;
+                    await UIAnimations.TransformShakeOnX(_view.HackButton.transform);
+                    _buttonAnimation = false;
+                }
             }
         }
-    }
 
-    public async UniTask ChestUpgrade()
-    {
-        _view.buttonAudio.Play();
-        if (!CheckChestContain(_model.upgradeChest) && _model.data.Data.Token >= 10)
+        private async UniTask ShowCards(bool isCrack)
         {
-            _model.data.DebitingToken(10);
-            _model.data.Data.ChestInventory.Add(_model.upgradeChest);
-            _view.upgradeButton.gameObject.SetActive(false);
-            CloseOpenScreen();
-            _model.data.reloadInventory();
-            _model.data.reloadInventory();
+            _view.CardShowView.gameObject.SetActive(true);
+            var cardShowController = GetCardShowController();
 
+            _view.OpenChestEffect.SetActive(true);
+            await MinimizeOpenScreen();
+            _model.Data.Statistic.ChestOpenNumber++;
+
+            if (_model.CurrentChest.ChestName == _model.UpgradeChest.ChestName)
+            {
+                _view.MisteryBoxAudio.Play();
+                await cardShowController.StartMisteryBoxShow();
+                DeleteMisteryBoxInInventory();
+            }
+            else
+            {
+                await cardShowController.StartCardsShow(isCrack);
+            }
+
+            _model.Data.ReloadInventory();
+            await CloseOpenScreen();
+            _view.OpenChestEffect.SetActive(false);
+            _view.CardShowView.gameObject.SetActive(false);
         }
-        else
+
+        public void DeleteMisteryBoxInInventory()
         {
-            await UIAnimations.TransformShakeOnX(_view.upgradeButton.transform);
+            for (var i = 0; i < _model.Data.PlayerData.ChestInventory.Count; i++)
+            {
+                if (_model.Data.PlayerData.ChestInventory[i].ChestName == _model.CurrentChest.ChestName)
+                {
+                    _model.Data.PlayerData.ChestInventory.RemoveAt(i);
+                    break;
+                }
+            }
         }
-    }
 
-    private bool CheckChestContain(ChestInfo chest)
-    {
-        foreach(var inventoryChest in _model.data.Data.ChestInventory)
+        public async UniTask ChestUpgrade()
         {
-            if (inventoryChest.chestName == chest.chestName)
-                return true;
-        }
-        return false;
-    }
+            _view.ButtonAudio.Play();
+            if (!CheckChestContain(_model.UpgradeChest) && _model.Data.PlayerData.Token >= 10)
+            {
+                _model.Data.DebitingToken(10);
+                _model.Data.PlayerData.ChestInventory.Add(_model.UpgradeChest);
+                _view.UpgradeButton.gameObject.SetActive(false);
+                CloseOpenScreen();
+                _model.Data.ReloadInventory();
+                _model.Data.ReloadInventory();
 
-    private CardsShowController<CardsShowView, CardsDataBase> GetCardShowController()
-    {
-        var cardShowModel = Resources.Load<CardsDataBase>("CardsDataBase");
-        cardShowModel.data = _model.data;
-        cardShowModel.currentChest = _model.currentChest;
-        var cardShowView = _view.cardShowView;
-        var controller = new CardsShowController<CardsShowView, CardsDataBase> (cardShowView, cardShowModel);
-        return controller;
+            }
+            else
+            {
+                await UIAnimations.TransformShakeOnX(_view.UpgradeButton.transform);
+            }
+        }
+
+        private bool CheckChestContain(ChestInfo chest)
+        {
+            foreach (var inventoryChest in _model.Data.PlayerData.ChestInventory)
+            {
+                if (inventoryChest.ChestName == chest.ChestName)
+                    return true;
+            }
+            return false;
+        }
+
+        private CardsShowController<CardsShowView, CardsDataBase> GetCardShowController()
+        {
+            var cardShowModel = Resources.Load<CardsDataBase>("CardsDataBase");
+            cardShowModel.Data = _model.Data;
+            cardShowModel.CurrentChest = _model.CurrentChest;
+            var cardShowView = _view.CardShowView;
+            var controller = new CardsShowController<CardsShowView, CardsDataBase>(cardShowView, cardShowModel);
+            return controller;
+        }
     }
-}
-public enum CombinationType
-{
-    standart,
-    bonus,
-    win
+    public enum CombinationType
+    {
+        standart,
+        bonus,
+        win
+    }
 }

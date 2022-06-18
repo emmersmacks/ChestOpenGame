@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TrainingView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal GameObject mainScreen;
-    [SerializeField] internal GameObject openChestScreen;
-    [SerializeField] internal Button nextPageButton;
+    public class TrainingView : MonoBehaviour, IView
+    {
+        [SerializeField] internal GameObject MainScreen;
+        [SerializeField] internal GameObject OpenChestScreen;
+        [SerializeField] internal Button NextPageButton;
+    }
 }
+

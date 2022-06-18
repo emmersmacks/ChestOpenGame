@@ -1,48 +1,65 @@
+using ChestGame.Data;
+using ChestGame.Game.Module.ScriptableModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardRandomizerModule
+namespace ChestGame.Game.Module.ScriptModule
 {
-    private List<CardInfo> _cards;
-    private List<BonusCombinationInfo> _bonusCombinations;
-    internal List<CardInfo> _currentWinCombination;
-    internal BonusCombinationInfo _currentBonusCombination;
-    private int generationSeed = 2;
-    public CardRandomizerModule(List<CardInfo> cards, List<BonusCombinationInfo> bonusCombinations)
+    public class CardRandomizerModule
     {
-        _cards = cards;
-        _bonusCombinations = bonusCombinations; 
-        _currentWinCombination = new List<CardInfo>();
-        var random = new System.Random();
-        var bonusIndex = random.Next(0, _bonusCombinations.Count);
-        _currentBonusCombination = _bonusCombinations[bonusIndex];
-        Debug.Log(_currentBonusCombination);
-    }
+        private CardsDataBase _cardsData;
+        private List<CardInfo> _cards;
+        private List<BonusCombinationInfo> _bonusCombinations;
 
-    public CardInfo GetRandomCard()
-    {
-        generationSeed += 12;
-        var random = new System.Random(generationSeed);
-        var cardIndex = random.Next(0, _cards.Count);
-        return _cards[cardIndex];
-    }
-
-    public List<CardInfo> GetWinCombination()
-    {
-        _currentWinCombination = new List<CardInfo>();
-        for(int i = 0; i < 3; i++)
+        internal List<CardInfo> CurrentWinCombination;
+        internal BonusCombinationInfo CurrentBonusCombination;
+        private int _generationSeed = 2;
+        public CardRandomizerModule(CardsDataBase cardData)
         {
-            _currentWinCombination.Add(GetRandomCard());
+            _cardsData = cardData;
+            _cards = cardData.AllCards;
+            _bonusCombinations = cardData.BonusCombinations;
+            CurrentWinCombination = new List<CardInfo>();
+            var random = new System.Random();
+            var bonusIndex = random.Next(0, _bonusCombinations.Count);
+            CurrentBonusCombination = _bonusCombinations[bonusIndex];
+            Debug.Log(CurrentBonusCombination);
         }
-        return _currentWinCombination;
-    }
 
-    public BonusCombinationInfo GetBonusCombination()
-    {
-        generationSeed += 12;
-        var random = new System.Random(generationSeed);
-        var cardIndex = random.Next(0, _bonusCombinations.Count);
-        return _bonusCombinations[cardIndex];
+        public CardInfo GetRandomCard()
+        {
+            _generationSeed += 12;
+            var random = new System.Random(_generationSeed);
+            var cardIndex = random.Next(0, _cards.Count);
+            return _cards[cardIndex];
+        }
+
+        public List<CardInfo> GetWinCombination()
+        {
+            CurrentWinCombination = new List<CardInfo>();
+            for (int i = 0; i < 3; i++)
+            {
+                CurrentWinCombination.Add(GetRandomCard());
+            }
+            return CurrentWinCombination;
+        }
+
+        public BonusCombinationInfo GetBonusCombination()
+        {
+            _generationSeed += 12;
+            var random = new System.Random(_generationSeed);
+            var cardIndex = random.Next(0, _bonusCombinations.Count);
+            return _bonusCombinations[cardIndex];
+        }
+
+        public CardInfo GetRandomMisteryCard()
+        {
+            _generationSeed += 12;
+            var random = new System.Random(_generationSeed);
+            var cardIndex = random.Next(0, _cards.Count);
+            return _cardsData.MisteryCards[cardIndex];
+        }
     }
 }
+

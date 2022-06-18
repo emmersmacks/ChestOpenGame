@@ -4,28 +4,33 @@ using UnityEngine;
 using System.Runtime.InteropServices;
 using UnityEngine.UI;
 
-public class OrientationController : MonoBehaviour
+namespace ChestGame.Game.Module.MonoModule
 {
-    [SerializeField] GameObject screen;
-    [SerializeField] Button fulscreen;
-
-    [DllImport("__Internal")] private static extern bool IsMobile();
-
-    private void Start()
+    public class OrientationController : MonoBehaviour
     {
-        fulscreen.onClick.RemoveAllListeners();
-        fulscreen.onClick.AddListener(EnableFulscreen);
+        [SerializeField] private GameObject _screen;
+        [SerializeField] private Button _fulscreen;
 
-        if (IsMobile())
+        [DllImport("__Internal")] private static extern bool IsMobile();
+
+        private void Start()
         {
-            fulscreen.gameObject.SetActive(true);
-        }
-        else
-            fulscreen.gameObject.SetActive(false);
-    }
+            _fulscreen.onClick.RemoveAllListeners();
+            _fulscreen.onClick.AddListener(EnableFulscreen);
 
-    private void EnableFulscreen()
-    {
-        Screen.fullScreen = !Screen.fullScreen;
+            if (IsMobile())
+            {
+                _fulscreen.gameObject.SetActive(true);
+            }
+            else
+                _fulscreen.gameObject.SetActive(false);
+        }
+
+        private void EnableFulscreen()
+        {
+            Screen.fullScreen = !Screen.fullScreen;
+        }
     }
 }
+
+

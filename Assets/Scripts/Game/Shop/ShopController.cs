@@ -2,62 +2,70 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
+using ChestGame.Game.Module.ScriptableModule;
+using ChestGame.Game.View;
+using ChestGame.Game.Models;
 
-public class ShopController<T, U>: Controller<T, U> where T : ShopView where U : ShopModel
+namespace ChestGame.Game.Controllers
 {
-    public ShopController(T view, U model) : base(view, model){}
-    bool canBuy = true;
-    protected override void Init()
+    public class ShopController<T, U> : Controller<T, U> where T : ShopView where U : ShopModel
     {
-        base.Init();
-        FillAllSlots();
-    }
+        public ShopController(T view, U model) : base(view, model) { }
 
-    public void FillAllSlots()
-    {
-        var firstSlot = _view.grid.transform.GetChild(0);
-        var keySlotView = firstSlot.GetComponent<ShopSlotView>();
-        FillSlot(keySlotView);
-        keySlotView.buyButton.onClick.RemoveAllListeners();
-        keySlotView.buyButton.onClick.AddListener(delegate { BuyKey(keySlotView.chest); });
-    }
-
-    private void FillSlot(ShopSlotView view)
-    {
-        view.textPrice.text = view.chest.price.ToString();
-        view.preview.sprite = view.chest.chestSprite;
-    }
-
-    private void BuyKey(ChestInfo itemInfo)
-    {
-        _view.buttonSound.Play();
-        if(canBuy)
+        private bool _canBuy = true;
+        protected override void Init()
         {
-            if (itemInfo.price <= _model.data.Data.Token)
+            base.Init();
+            FillAllSlots();
+        }
+
+        public void FillAllSlots()
+        {
+            var firstSlot = _view.Grid.transform.GetChild(0);
+            var keySlotView = firstSlot.GetComponent<ShopSlotView>();
+            FillSlot(keySlotView);
+            keySlotView.BuyButton.onClick.RemoveAllListeners();
+            keySlotView.BuyButton.onClick.AddListener(delegate { BuyKey(keySlotView.Chest); });
+        }
+
+        private void FillSlot(ShopSlotView view)
+        {
+            view.TextPrice.text = view.Chest.Price.ToString();
+            view.Preview.sprite = view.Chest.ChestSprite;
+        }
+
+        private void BuyKey(ChestInfo itemInfo)
+        {
+            _view.ButtonSound.Play();
+            if (_canBuy)
             {
-                _model.data.Statistic.KeyCollectedNumber++;
-                Debug.Log("Buyed");
-                _model.data.DebitingToken(itemInfo.price);
-                _model.data.DepositKey(1);
-                DestroyEffect();
+                if (itemInfo.Price <= _model.Data.PlayerData.Token)
+                {
+                    _model.Data.Statistic.KeyCollectedNumber++;
+                    Debug.Log("Buyed");
+                    _model.Data.DebitingToken(itemInfo.Price);
+                    _model.Data.DepositKey(1);
+                    DestroyEffect();
+                }
             }
-        }
-        
-    }
 
-    private async UniTask DestroyEffect()
-    {
-        canBuy = false;
-        while(_view.effect.alpha < 1)
-        {
-            _view.effect.alpha += 0.05f ;
-            await UniTask.Delay(10);
         }
-        while (_view.effect.alpha > 0)
+
+        private async UniTask DestroyEffect()
         {
-            _view.effect.alpha -= 0.05f;
-            await UniTask.Delay(10);
+            _canBuy = false;
+            while (_view.Effect.alpha < 1)
+            {
+                _view.Effect.alpha += 0.05f;
+                await UniTask.Delay(10);
+            }
+            while (_view.Effect.alpha > 0)
+            {
+                _view.Effect.alpha -= 0.05f;
+                await UniTask.Delay(10);
+            }
+            _canBuy = true;
         }
-        canBuy = true;
     }
 }
+

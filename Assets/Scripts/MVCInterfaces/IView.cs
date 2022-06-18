@@ -2,7 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IView
+namespace ChestGame.Game.View
 {
-    
+    public interface IView
+    {
+
+    }
 }
+

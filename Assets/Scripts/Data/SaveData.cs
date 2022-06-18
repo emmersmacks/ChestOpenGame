@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public static class SaveData
+namespace ChestGame.Data
 {
-    private const string dataPath = "/PlayerData";
-
-    public static void SaveToJson(PlayerData data)
+    public static class SaveData
     {
-        var stringData = JsonUtility.ToJson(data);
-        File.WriteAllText(dataPath, stringData);
+        private const string _dataPath = "/PlayerData";
+
+        public static void SaveToJson(PlayerData data)
+        {
+            var stringData = JsonUtility.ToJson(data);
+            File.WriteAllText(_dataPath, stringData);
+        }
     }
 }
+

@@ -2,16 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardsPresenterModule : MonoBehaviour
+namespace ChestGame.Game.Module.MonoModule
 {
-    public GameObject InstantiateNewCard(GameObject cardPref)
+    public class CardsPresenterModule : MonoBehaviour
     {
-        var currentCard = Instantiate(cardPref, new Vector2(0, -9), Quaternion.identity, transform);
-        return currentCard;
-    }
+        public GameObject InstantiateNewCard(GameObject cardPref)
+        {
+            var currentCard = Instantiate(cardPref, new Vector2(0, -9), Quaternion.identity, transform);
+            return currentCard;
+        }
 
-    public void DestroyCard(GameObject cardObject)
-    {
-        Destroy(cardObject);
+        public void DestroyCard(GameObject cardObject)
+        {
+            Destroy(cardObject);
+        }
     }
 }
+

@@ -1,11 +1,17 @@
+using ChestGame.Data;
+using ChestGame.Game.Controllers;
+using ChestGame.Game.View;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "ShopModel")]
-public class ShopModel : ScriptableObject, IModel
+namespace ChestGame.Game.Models
 {
-    internal PlayerDataController data;
-    internal UIController ui;
-    internal ChestInventoryController<ChestInventoryView, ChestInventoryModel> chestInventoryController;
+    [CreateAssetMenu(fileName = "ShopModel")]
+    public class ShopModel : ScriptableObject, IModel
+    {
+        internal PlayerDataController Data;
+        internal ChestInventoryController<ChestInventoryView, ChestInventoryModel> ChestInventoryController;
+    }
 }
+

@@ -1,16 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using ChestGame.Game.Controllers;
+using ChestGame.Game.View;
 using UnityEngine;
 
-public class UIApplication : MonoBehaviour, IApplication
+namespace ChestGame.Game.Applications
 {
-    [SerializeField] private UIView _uiView;
-
-    private UIController _uiController;
-
-    public UIController InstanceApplication()
+    public class UIApplication : MonoBehaviour, IApplication
     {
-        _uiController = new UIController(_uiView);
-        return _uiController;
+        [SerializeField] private UIView _uiView;
+
+        private UIController _uiController;
+
+        public UIController InstanceApplication()
+        {
+            _uiController = new UIController(_uiView);
+            return _uiController;
+        }
     }
 }
+

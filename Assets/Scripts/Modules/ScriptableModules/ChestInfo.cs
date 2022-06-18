@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-[CreateAssetMenu(fileName = "Chest")]
-public class ChestInfo : ScriptableObject
+namespace ChestGame.Game.Module.ScriptableModule
 {
-    [SerializeField] private Sprite _chestSprite;
-    [SerializeField] private string _chestName;
-    [SerializeField] private int _price;
-    [SerializeField] internal int winChanceInProcent;
-    [SerializeField] internal int bonusChanceInProcaent;
-    public Sprite chestSprite => this._chestSprite;
-    public int price => this._price;
-    public string chestName => this._chestName;
+    [CreateAssetMenu(fileName = "Chest")]
+    public class ChestInfo : ScriptableObject
+    {
+        [SerializeField] private Sprite _chestSprite;
+        [SerializeField] private string _chestName;
+        [SerializeField] private int _price;
+        [SerializeField] internal int WinChanceInProcent;
+        [SerializeField] internal int BonusChanceInProcaent;
+        public Sprite ChestSprite => this._chestSprite;
+        public int Price => this._price;
+        public string ChestName => this._chestName;
+    }
 }
+

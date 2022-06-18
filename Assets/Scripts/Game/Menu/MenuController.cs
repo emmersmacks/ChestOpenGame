@@ -4,88 +4,94 @@ using Cysharp.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ChestGame.Game.View;
+using ChestGame.Game.Models;
 
-public class MenuController<T, U> : Controller<T, U> where T : MenuView where U : MenuModel
+namespace ChestGame.Game.Controllers
 {
-    public MenuController(T view, U model) : base(view, model) { }
-
-    private bool isAnimationStart = false;
-
-    protected override void Init()
+    public class MenuController<T, U> : Controller<T, U> where T : MenuView where U : MenuModel
     {
-        SetDefaultScreen();
+        public MenuController(T view, U model) : base(view, model) { }
 
-        _view.cardInventoryButton.onClick.AddListener(delegate { StartMenuSwitch(_view.cardInventoryScreen, _view.cardInventoryButton); });
-        _view.chestInventoryButton.onClick.AddListener(delegate { StartMenuSwitch(_view.chestInventoryScreen, _view.chestInventoryButton); });
-        _view.shopButton.onClick.AddListener(delegate { StartMenuSwitch(_view.shopScreen, _view.shopButton); });
-    }
+        private bool _isAnimationStart = false;
 
-    private void SetDefaultScreen()
-    {
-        _model.currentScreen = _view.chestInventoryScreen;
-        _view.chestInventoryScreen.SetActive(true);
-        _model.currentButton = _view.chestInventoryButton.gameObject;
-        ShowScreen(_model.currentScreen.GetComponent<CanvasGroup>());
-        MarkButtonEnabled(_view.chestInventoryButton);
-    }
-
-    private void StartMenuSwitch(GameObject screen, Button button)
-    {
-        if(isAnimationStart == false)
+        protected override void Init()
         {
-            _view.buttonAudio.Play();
-            MarkButtonDisable();
-            MarkButtonEnabled(button);
-            SwitchScreens(screen);
+            SetDefaultScreen();
+
+            _view.CardInventoryButton.onClick.AddListener(delegate { StartMenuSwitch(_view.CardInventoryScreen, _view.CardInventoryButton); });
+            _view.ChestInventoryButton.onClick.AddListener(delegate { StartMenuSwitch(_view.ChestInventoryScreen, _view.ChestInventoryButton); });
+            _view.ShopButton.onClick.AddListener(delegate { StartMenuSwitch(_view.ShopScreen, _view.ShopButton); });
         }
-    }
 
-    public async UniTask SwitchScreens(GameObject screen)
-    {
-        await StartAlphaSwitchAnimation(_model.currentScreen.GetComponent<CanvasGroup>(), screen.GetComponent<CanvasGroup>());
-        _model.currentScreen = screen;
-    }
-
-    private void MarkButtonEnabled(Button button)
-    {
-        _model.currentButton = button.gameObject;
-        _model.currentButton.transform.GetChild(0).GetComponent<Image>().color = Color.white;
-        _model.currentButton.GetComponent<Image>().sprite = _model.buttonEnabled;
-    }
-
-    private void MarkButtonDisable()
-    {
-        _model.currentButton.transform.GetComponent<Image>().sprite = _model.buttonDisabled;
-        _model.currentButton.transform.GetChild(0).GetComponent<Image>().color = Color.black;
-    }
-
-    private async UniTask StartAlphaSwitchAnimation(CanvasGroup currentGroup, CanvasGroup nextGroup)
-    {
-        isAnimationStart = true;
-        await HideScreen(currentGroup);
-        await ShowScreen(nextGroup);
-        isAnimationStart = false;
-    }
-
-    private async UniTask HideScreen(CanvasGroup screen)
-    {
-        while (screen.alpha > 0)
+        private void SetDefaultScreen()
         {
-            screen.alpha -= 0.08f;
-            await UniTask.Delay(5);
+            _model.CurrentScreen = _view.ChestInventoryScreen;
+            _view.ChestInventoryScreen.SetActive(true);
+            _model.CurrentButton = _view.ChestInventoryButton.gameObject;
+            ShowScreen(_model.CurrentScreen.GetComponent<CanvasGroup>());
+            MarkButtonEnabled(_view.ChestInventoryButton);
         }
-        screen.gameObject.SetActive(false);
 
-    }
-
-    private async UniTask ShowScreen(CanvasGroup screen)
-    {
-        screen.gameObject.SetActive(true);
-
-        while (screen.alpha < 1)
+        private void StartMenuSwitch(GameObject screen, Button button)
         {
-            screen.alpha += 0.08f;
-            await UniTask.Delay(5);
+            if (_isAnimationStart == false)
+            {
+                _view.ButtonAudio.Play();
+                MarkButtonDisable();
+                MarkButtonEnabled(button);
+                SwitchScreens(screen);
+            }
+        }
+
+        public async UniTask SwitchScreens(GameObject screen)
+        {
+            await StartAlphaSwitchAnimation(_model.CurrentScreen.GetComponent<CanvasGroup>(), screen.GetComponent<CanvasGroup>());
+            _model.CurrentScreen = screen;
+        }
+
+        private void MarkButtonEnabled(Button button)
+        {
+            _model.CurrentButton = button.gameObject;
+            _model.CurrentButton.transform.GetChild(0).GetComponent<Image>().color = Color.white;
+            _model.CurrentButton.GetComponent<Image>().sprite = _model.ButtonEnabled;
+        }
+
+        private void MarkButtonDisable()
+        {
+            _model.CurrentButton.transform.GetComponent<Image>().sprite = _model.ButtonDisabled;
+            _model.CurrentButton.transform.GetChild(0).GetComponent<Image>().color = Color.black;
+        }
+
+        private async UniTask StartAlphaSwitchAnimation(CanvasGroup currentGroup, CanvasGroup nextGroup)
+        {
+            _isAnimationStart = true;
+            await HideScreen(currentGroup);
+            await ShowScreen(nextGroup);
+            _isAnimationStart = false;
+        }
+
+        private async UniTask HideScreen(CanvasGroup screen)
+        {
+            while (screen.alpha > 0)
+            {
+                screen.alpha -= 0.08f;
+                await UniTask.Delay(5);
+            }
+            screen.gameObject.SetActive(false);
+
+        }
+
+        private async UniTask ShowScreen(CanvasGroup screen)
+        {
+            screen.gameObject.SetActive(true);
+
+            while (screen.alpha < 1)
+            {
+                screen.alpha += 0.08f;
+                await UniTask.Delay(5);
+            }
         }
     }
 }
+

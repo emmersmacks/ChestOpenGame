@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 
-public static class LoadData
+namespace ChestGame.Data
 {
-    private const string dataPath = "/PlayerData";
-
-    public static PlayerData LoadFromJson()
+    public static class LoadData
     {
-        string fileData = File.ReadAllText(dataPath);
-        PlayerData data = JsonUtility.FromJson<PlayerData>(fileData);
-        return data;
+        private const string _dataPath = "/PlayerData";
+
+        public static PlayerData LoadFromJson()
+        {
+            string fileData = File.ReadAllText(_dataPath);
+            PlayerData data = JsonUtility.FromJson<PlayerData>(fileData);
+            return data;
+        }
     }
 }
+

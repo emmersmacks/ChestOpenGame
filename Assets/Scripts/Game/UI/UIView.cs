@@ -3,13 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIView : MonoBehaviour
+namespace ChestGame.Game.View
 {
-    [SerializeField] public PanelsView panels;
-    [SerializeField] internal ShopView shopWindow;
-    [SerializeField] internal Button keyShopButton;
-    [SerializeField] internal Button trainingButton;
-    [SerializeField] internal TrainingView trainingView;
-    [SerializeField] internal GameObject trainingArrow;
-    [SerializeField] internal AudioSource buttonAudio;
+    public class UIView : MonoBehaviour
+    {
+        [SerializeField] public PanelsView Panels;
+        [SerializeField] internal ShopView ShopWindow;
+        [SerializeField] internal Button KeyShopButton;
+        [SerializeField] internal Button TrainingButton;
+        [SerializeField] internal TrainingView TrainingView;
+        [SerializeField] internal GameObject TrainingArrow;
+        [SerializeField] internal AudioSource ButtonAudio;
+    }
 }
+

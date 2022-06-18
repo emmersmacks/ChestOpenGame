@@ -4,11 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using Cysharp.Threading.Tasks;
 using System;
+using ChestGame.Game.Module.MonoModule;
 
-public class HoldersSlotView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal CombinationView CombinationView;
-    [SerializeField] internal Button OpenButton;
-    [SerializeField] internal Image TimeCounterObject;
-    [SerializeField] internal TimerModule TimerModule;
+    public class HoldersSlotView : MonoBehaviour, IView
+    {
+        [SerializeField] internal CombinationView CombinationView;
+        [SerializeField] internal Button OpenButton;
+        [SerializeField] internal Image TimeCounterObject;
+        [SerializeField] internal TimerModule TimerModule;
+    }
 }
+

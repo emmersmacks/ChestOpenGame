@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PanelsView : MonoBehaviour
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal Text tokenText;
-    [SerializeField] internal Text keyText;
-    [SerializeField] internal Text masterKeyText;
-    [SerializeField] internal Button webSiteButton;
-    [SerializeField] internal Button keyBuyButton;
+    public class PanelsView : MonoBehaviour
+    {
+        [SerializeField] internal Text TokenText;
+        [SerializeField] internal Text KeyText;
+        [SerializeField] internal Text MasterKeyText;
+        [SerializeField] internal Button WebSiteButton;
+        [SerializeField] internal Button KeyBuyButton;
+    }
 }
+

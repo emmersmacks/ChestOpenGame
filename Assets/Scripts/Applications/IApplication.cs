@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IApplication
+namespace ChestGame.Game.Applications
 {
+    public interface IApplication
+    {
+    }
 }
+

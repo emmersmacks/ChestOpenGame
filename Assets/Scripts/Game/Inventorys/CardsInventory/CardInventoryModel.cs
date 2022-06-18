@@ -1,12 +1,19 @@
+using ChestGame.Data;
+using ChestGame.Game.Controllers;
+using ChestGame.Game.View;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CardsInventoryModel")]
-public class CardInventoryModel : ScriptableObject, IModel
+namespace ChestGame.Game.Models
 {
-    internal PlayerDataController data;
-    internal GameObject CurrentCard;
-    internal ChestOpenController<ChestOpenView, ChestOpenModel> chestOpenController;
-    [SerializeField] internal GameObject cardPrefab;
+    [CreateAssetMenu(fileName = "CardsInventoryModel")]
+    public class CardInventoryModel : ScriptableObject, IModel
+    {
+        internal PlayerDataController Data;
+        internal GameObject CurrentCard;
+        internal ChestOpenController<ChestOpenView, ChestOpenModel> ChestOpenController;
+        [SerializeField] internal GameObject CardPrefab;
+    }
 }
+

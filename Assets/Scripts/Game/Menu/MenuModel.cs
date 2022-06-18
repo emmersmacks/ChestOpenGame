@@ -1,11 +1,15 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MenuModel")]
-public class MenuModel : ScriptableObject, IModel
+namespace ChestGame.Game.Models
 {
-    [SerializeField] internal Sprite buttonEnabled;
-    [SerializeField] internal Sprite buttonDisabled;
+    [CreateAssetMenu(fileName = "MenuModel")]
+    public class MenuModel : ScriptableObject, IModel
+    {
+        [SerializeField] internal Sprite ButtonEnabled;
+        [SerializeField] internal Sprite ButtonDisabled;
 
-    internal GameObject currentScreen;
-    internal GameObject currentButton;
+        internal GameObject CurrentScreen;
+        internal GameObject CurrentButton;
+    }
 }
+

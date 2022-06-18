@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using ChestGame.Game.Module.MonoModule;
 
-public class CardsInventoryView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal GameObject grid;
-    [SerializeField] internal Sprite slotsBackground;
-    [SerializeField] internal GameObject cardPositions;
-    [SerializeField] internal Button closePresenterButton;
-    [SerializeField] internal CardsPresenterModule cardPresenterModule;
-    
-    internal bool ScreenIsShow = false;
+    public class CardsInventoryView : MonoBehaviour, IView
+    {
+        [SerializeField] internal GameObject Grid;
+        [SerializeField] internal Sprite SlotsBackground;
+        [SerializeField] internal GameObject CardPositions;
+        [SerializeField] internal Button ClosePresenterButton;
+        [SerializeField] internal CardsPresenterModule CardPresenterModule;
+
+        internal bool ScreenIsShow = false;
+    }
 }
+

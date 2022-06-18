@@ -1,12 +1,17 @@
+using ChestGame.Game.Module.ScriptableModule;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InventoryCardsSlotView : MonoBehaviour
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal Image preview;
-    [SerializeField] internal Button button;
+    public class InventoryCardsSlotView : MonoBehaviour
+    {
+        [SerializeField] internal Image Preview;
+        [SerializeField] internal Button Button;
 
-    internal CardInfo card;
+        internal CardInfo Card;
+    }
 }
+

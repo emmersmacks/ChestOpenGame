@@ -1,76 +1,83 @@
+using ChestGame.Data;
+using ChestGame.Game.Models;
+using ChestGame.Game.View;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChestInventoryController<T, U> : Controller<T, U> where T : ChestInventoryView where U : ChestInventoryModel
+namespace ChestGame.Game.Controllers
 {
-    public ChestInventoryController(T view, U model) : base(view, model){}
-
-    public ChestOpenController<ChestOpenView, ChestOpenModel> chestOpenController { get; set; }
-
-    protected override void Init()
+    public class ChestInventoryController<T, U> : Controller<T, U> where T : ChestInventoryView where U : ChestInventoryModel
     {
-        base.Init();
-        _model.data.Statistic.ChangeStatistic += FillStatisticScreen;
-        _model.data.reloadInventory += FillInventorySlots;
-        var prizeModel = Resources.Load<CardsDataBase>("CardsDataBase");
-        var prizeFund = new PrizeFundController<CombinationView, CardsDataBase>(_view.combinationView, prizeModel);
-        FillInventorySlots();
-        FillStatisticScreen();
-        FillPrizePanel();
-    }
+        public ChestInventoryController(T view, U model) : base(view, model) { }
 
-    public void FillInventorySlots()
-    {
-        Clearinventory();
-        var count = 0;
-        foreach(var item in _model.data.Data.ChestInventory)
+        public ChestOpenController<ChestOpenView, ChestOpenModel> ChestOpenController { get; set; }
+
+        protected override void Init()
         {
-            var slot = _view.grid.transform.GetChild(count);
-            var slotView = slot.GetComponent<InventoryChestSlotView>();
-            slotView.preview.sprite = item.chestSprite;
-            slotView.chest = item;
-            slotView.button.onClick.AddListener(delegate { StartOpenScript(slotView); });
-            count++;
+            base.Init();
+            _model.Data.Statistic.ChangeStatistic += FillStatisticScreen;
+            _model.Data.ReloadInventory += FillInventorySlots;
+            var prizeModel = Resources.Load<CardsDataBase>("CardsDataBase");
+            var prizeFund = new PrizeFundController<CombinationView, CardsDataBase>(_view.CombinationView, prizeModel);
+            FillInventorySlots();
+            FillStatisticScreen();
+            FillPrizePanel();
         }
-    }
 
-    public void Clearinventory()
-    {
-        for(int i = 0; i < _view.grid.transform.childCount; i++)
+        public void FillInventorySlots()
         {
-            var currentSlot = _view.grid.transform.GetChild(i).GetComponent<InventoryChestSlotView>();
-            currentSlot.preview.sprite = _view.slotsBackground;
-            currentSlot.chest = null;
-            currentSlot.button.onClick.RemoveAllListeners();
+            Clearinventory();
+            var count = 0;
+            foreach (var item in _model.Data.PlayerData.ChestInventory)
+            {
+                var slot = _view.Grid.transform.GetChild(count);
+                var slotView = slot.GetComponent<InventoryChestSlotView>();
+                slotView.Preview.sprite = item.ChestSprite;
+                slotView.Chest = item;
+                slotView.Button.onClick.AddListener(delegate { StartOpenScript(slotView); });
+                count++;
+            }
         }
-    }
 
-    private void StartOpenScript(InventoryChestSlotView slot)
-    {
-        var model = Resources.Load<ChestOpenModel>("ChestOpenModel");
-        model.slotView = slot;
-        model.currentChest = slot.chest;
-        model.data = _model.data;
-        model.inventory = _view.grid;
+        public void Clearinventory()
+        {
+            for (int i = 0; i < _view.Grid.transform.childCount; i++)
+            {
+                var currentSlot = _view.Grid.transform.GetChild(i).GetComponent<InventoryChestSlotView>();
+                currentSlot.Preview.sprite = _view.SlotsBackground;
+                currentSlot.Chest = null;
+                currentSlot.Button.onClick.RemoveAllListeners();
+            }
+        }
 
-        chestOpenController = new ChestOpenController<ChestOpenView, ChestOpenModel>(_view.chestOpenView, model);
-        
-    }
+        private void StartOpenScript(InventoryChestSlotView slot)
+        {
+            var model = Resources.Load<ChestOpenModel>("ChestOpenModel");
+            model.SlotView = slot;
+            model.CurrentChest = slot.Chest;
+            model.Data = _model.Data;
+            model.Inventory = _view.Grid;
 
-    private void FillStatisticScreen()
-    {
-        _view.statisticView.SetTextInField(_view.statisticView.winCount, "Number of winning combinations: " + _model.data.Statistic.WinNumber.ToString());
-        _view.statisticView.SetTextInField(_view.statisticView.bonusCombinationsCount, "Number of bonus combinations: " + _model.data.Statistic.BonusNumber.ToString());
-        _view.statisticView.SetTextInField(_view.statisticView.tokenCollectedCount, "Token collected: " + _model.data.Statistic.TokenCollectedNumber.ToString());
-        _view.statisticView.SetTextInField(_view.statisticView.keyCollectedCount, "Key collected: " + _model.data.Statistic.KeyCollectedNumber.ToString());
-        _view.statisticView.SetTextInField(_view.statisticView.openChestCount, "Number of open chests: " + _model.data.Statistic.ChestOpenNumber.ToString());
-    }
+            ChestOpenController = new ChestOpenController<ChestOpenView, ChestOpenModel>(_view.ChestOpenView, model);
 
-    private void FillPrizePanel()
-    {
-        var bonusPanelModel = Resources.Load<CardsDataBase>("CardsDataBase");
-        var bonusPanelView = _view.bonusCombinationView;
-        var bonusCombinationController = new BonusCombinationsPanelController<BonusCombinationsView, CardsDataBase>(bonusPanelView, bonusPanelModel);
+        }
+
+        private void FillStatisticScreen()
+        {
+            _view.StatisticView.SetTextInField(_view.StatisticView.WinCount, "Number of winning combinations: " + _model.Data.Statistic.WinNumber.ToString());
+            _view.StatisticView.SetTextInField(_view.StatisticView.BonusCombinationsCount, "Number of bonus combinations: " + _model.Data.Statistic.BonusNumber.ToString());
+            _view.StatisticView.SetTextInField(_view.StatisticView.TokenCollectedCount, "Token collected: " + _model.Data.Statistic.TokenCollectedNumber.ToString());
+            _view.StatisticView.SetTextInField(_view.StatisticView.KeyCollectedCount, "Key collected: " + _model.Data.Statistic.KeyCollectedNumber.ToString());
+            _view.StatisticView.SetTextInField(_view.StatisticView.OpenChestCount, "Number of open chests: " + _model.Data.Statistic.ChestOpenNumber.ToString());
+        }
+
+        private void FillPrizePanel()
+        {
+            var bonusPanelModel = Resources.Load<CardsDataBase>("CardsDataBase");
+            var bonusPanelView = _view.BonusCombinationView;
+            var bonusCombinationController = new BonusCombinationsPanelController<BonusCombinationsView, CardsDataBase>(bonusPanelView, bonusPanelModel);
+        }
     }
 }
+

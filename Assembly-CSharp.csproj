@@ -57,11 +57,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\Game\ChestOpen\CardsShow\CardsShowView.cs" />
+    <Compile Include="Assets\Scripts\Game\Inventorys\CardsInventory\CardsInventoryView.cs" />
     <Compile Include="Assets\Scripts\Game\UI\UIView.cs" />
     <Compile Include="Assets\Scripts\Game\Shop\ShopModel.cs" />
-    <Compile Include="Assets\Scripts\Applications\IApplication.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\Holders\HoldersInventoryController.cs" />
     <Compile Include="Assets\Scripts\Applications\ApplicationController.cs" />
+    <Compile Include="Assets\Scripts\Data\CardsDataBase.cs" />
     <Compile Include="Assets\Scripts\Game\UI\UIController.cs" />
     <Compile Include="Assets\Scripts\Game\ChestOpen\CardsShow\CardsShowController.cs" />
     <Compile Include="Assets\Scripts\Applications\ChestInventoryApplication.cs" />
@@ -69,17 +70,21 @@
     <Compile Include="Assets\Scripts\Preloader\LoadGame.cs" />
     <Compile Include="Assets\Scripts\Game\ChestOpen\ChestOpenWindowControllers\ChestOpenController.cs" />
     <Compile Include="Assets\Scripts\Game\Training\TrainingController.cs" />
-    <Compile Include="Assets\Scripts\Modules\MonoModules\CardView.cs" />
+    <Compile Include="Assets\Scripts\Modules\MonoModules\CombinationView.cs" />
+    <Compile Include="Assets\Scripts\Game\UI\CardView.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csAnimationSpin.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\ChestInventory\ChestInventoryController.cs" />
     <Compile Include="Assets\Scripts\Game\Training\TrainingModel.cs" />
+    <Compile Include="Assets\Scripts\Modules\MonoModules\CardsPresenterModule.cs" />
     <Compile Include="Assets\Scripts\Game\Prize Fund\PrizeFundController.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\ChestInventory\ChestInventoryModel.cs" />
     <Compile Include="Assets\Scripts\Game\Shop\ShopController.cs" />
+    <Compile Include="Assets\Scripts\Modules\MonoModules\TimerModule.cs" />
     <Compile Include="Assets\Scripts\Modules\ScriptableModules\BonusCombinationInfo.cs" />
     <Compile Include="Assets\Scripts\Animations\UIAnimations.cs" />
-    <Compile Include="Assets\Scripts\Game\Inventorys\ChestInventoryView.cs" />
+    <Compile Include="Assets\Scripts\Game\Inventorys\ChestInventory\ChestInventoryView.cs" />
     <Compile Include="Assets\Scripts\Game\Menu\MenuView.cs" />
+    <Compile Include="Assets\Scripts\Game\Inventorys\Holders\HoldersInventoryView.cs" />
     <Compile Include="Assets\Scripts\MVCInterfaces\IView.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csParticleMove.cs" />
     <Compile Include="Assets\Scripts\Modules\ScriptableModules\CardInfo.cs" />
@@ -99,8 +104,10 @@
     <Compile Include="Assets\Scripts\Game\Menu\MenuModel.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\Holders\HoldersModel.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\CardsInventory\InventoryCardsSlotView.cs" />
+    <Compile Include="Assets\Scripts\Game\BonusCombinationsPanel\BonusCombinationsPanelController.cs" />
     <Compile Include="Assets\Scripts\Data\SaveData.cs" />
     <Compile Include="Assets\Scripts\Applications\HoldersInventoryApplication.cs" />
+    <Compile Include="Assets\Scripts\Game\BonusCombinationsPanel\BonusCombinationsView.cs" />
     <Compile Include="Assets\Scripts\Game\ChestOpen\ChestOpenWindowControllers\ChestOpenModel.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\ChestInventory\InventoryChestSlotView.cs" />
     <Compile Include="Assets\Scripts\Modules\ScriptableModules\ChestInfo.cs" />
@@ -118,14 +125,7 @@
     <Compile Include="Assets\Scripts\Applications\UIApplication.cs" />
     <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csDestroyEffect.cs" />
-    <Compile Include="Assets\Scripts\Game\BonusCombinationsPanel\BonusCombinationsPanelController.cs" />
-    <Compile Include="Assets\Scripts\Game\BonusCombinationsPanel\BonusCombinationsView.cs" />
-    <Compile Include="Assets\Scripts\Modules\MonoModules\CombinationView.cs" />
-    <Compile Include="Assets\Scripts\Modules\MonoModules\TimerModule.cs" />
-    <Compile Include="Assets\Scripts\Modules\MonoModules\CardsPresenterModule.cs" />
-    <Compile Include="Assets\Scripts\Game\Inventorys\Holders\HoldersInventoryView.cs" />
-    <Compile Include="Assets\Scripts\Game\Inventorys\CardsInventory\CardsInventoryView.cs" />
-    <Compile Include="Assets\Scripts\Data\CardsDataBase.cs" />
+    <Compile Include="Assets\Scripts\Applications\IApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

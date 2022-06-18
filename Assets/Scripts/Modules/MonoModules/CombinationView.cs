@@ -1,10 +1,15 @@
+using ChestGame.Game.Module.MonoModule;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombinationView : MonoBehaviour, IView
+namespace ChestGame.Game.View
 {
-    [SerializeField] internal Image FirstCardPreview;
-    [SerializeField] internal Image SecondCardPreview;
-    [SerializeField] internal Image ThirdCardPreview;
-    [SerializeField] internal TimerModule timerModule;
+    public class CombinationView : MonoBehaviour, IView
+    {
+        [SerializeField] internal Image FirstCardPreview;
+        [SerializeField] internal Image SecondCardPreview;
+        [SerializeField] internal Image ThirdCardPreview;
+        [SerializeField] internal TimerModule TimerModule;
+    }
 }
+
