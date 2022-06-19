@@ -8,7 +8,6 @@ namespace ChestGame.Game.Module.MonoModule
 {
     public class OrientationController : MonoBehaviour
     {
-        [SerializeField] private GameObject _screen;
         [SerializeField] private Button _fulscreen;
 
         [DllImport("__Internal")] private static extern bool IsMobile();

@@ -15,5 +15,5 @@ MonoBehaviour:
   _chestSprite: {fileID: 21300000, guid: df504c1d0067c7246bf313978e306c35, type: 3}
   _chestName: Chest1Level
   _price: 10
-  winChanceInProcent: 30
-  bonusChanceInProcaent: 50
+  WinChanceInProcent: 10
+  BonusChanceInProcaent: 20

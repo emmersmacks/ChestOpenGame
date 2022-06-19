@@ -9,7 +9,6 @@ namespace ChestGame.Game.Module.MonoModule
     public class ScrollModule : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         [SerializeField] private GameObject _contentBar;
-        [SerializeField] private Button _panelButton;
 
         private Camera _camera;
         private bool _move;

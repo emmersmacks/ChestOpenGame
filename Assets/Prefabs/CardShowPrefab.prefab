@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5160257127518150033}
   - component: {fileID: 3113749270981226776}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Cracks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,9 +213,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56ba8c1a7f52ba44d88d7b0d949703a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  background: {fileID: 239525592334032419}
-  preview: {fileID: 5665905223070305728}
-  cracks: {fileID: 3113749270981226776}
+  Background: {fileID: 239525592334032419}
+  Preview: {fileID: 5665905223070305728}
+  Cracks: {fileID: 3113749270981226776}
 --- !u!1 &4416521603382703777
 GameObject:
   m_ObjectHideFlags: 0

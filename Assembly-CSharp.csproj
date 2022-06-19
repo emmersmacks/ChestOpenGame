@@ -70,6 +70,7 @@
     <Compile Include="Assets\Scripts\Preloader\LoadGame.cs" />
     <Compile Include="Assets\Scripts\Game\ChestOpen\ChestOpenWindowControllers\ChestOpenController.cs" />
     <Compile Include="Assets\Scripts\Game\Training\TrainingController.cs" />
+    <Compile Include="Assets\Scripts\Applications\IApplication.cs" />
     <Compile Include="Assets\Scripts\Modules\MonoModules\CombinationView.cs" />
     <Compile Include="Assets\Scripts\Game\UI\CardView.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csAnimationSpin.cs" />
@@ -125,7 +126,6 @@
     <Compile Include="Assets\Scripts\Applications\UIApplication.cs" />
     <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csDestroyEffect.cs" />
-    <Compile Include="Assets\Scripts\Applications\IApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

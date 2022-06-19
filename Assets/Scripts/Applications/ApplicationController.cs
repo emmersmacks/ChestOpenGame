@@ -11,11 +11,6 @@ namespace ChestGame.Game.Applications
     {
         private UIController _uiController;
         private PlayerDataController _dataController;
-        private MenuController<MenuView, MenuModel> _menuController;
-        private ShopController<ShopView, ShopModel> _shopController;
-        private CardInventoryController<CardsInventoryView, CardInventoryModel> _cardInventoryController;
-        private ChestInventoryController<ChestInventoryView, ChestInventoryModel> _chestInventoryController;
-        private HoldersInventoryController<HoldersInventoryView, HoldersModel> _holdersController;
 
         [SerializeField] private ChestInfo defaultChest;
 
@@ -31,11 +26,11 @@ namespace ChestGame.Game.Applications
 
         private void SetAllApplications()
         {
-            _menuController = GetComponent<MenuApplication>().InstantiateApplication();
-            _shopController = GetComponent<ShopApplication>().InstanceApplication(_dataController);
-            _cardInventoryController = GetComponent<CardInventoryApplication>().InstanceApplication(_dataController);
-            _chestInventoryController = GetComponent<ChestInventoryApplication>().InstanceApplication(_dataController);
-            _holdersController = GetComponent<HoldersInventoryApplication>().InstanceApplication(_dataController);
+            GetComponent<MenuApplication>().InstantiateApplication();
+            GetComponent<ShopApplication>().InstanceApplication(_dataController);
+            GetComponent<CardInventoryApplication>().InstanceApplication(_dataController);
+            GetComponent<ChestInventoryApplication>().InstanceApplication(_dataController);
+            GetComponent<HoldersInventoryApplication>().InstanceApplication(_dataController);
         }
 
         private void OnDestroy()
