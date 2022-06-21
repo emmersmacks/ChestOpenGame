@@ -33,18 +33,28 @@ namespace ChestGame.Game.Module.ScriptableModule
         [SerializeField] private CardInfo _secondCard;
         [SerializeField] private CardInfo _thirdCard;
 
-        internal List<CardInfo> AllCards;
+        private List<CardInfo> _allCards;
 
-        public Combination()
-        {
-            AllCards = new List<CardInfo>();
-            AllCards.Add(_firstCard);
-            AllCards.Add(_secondCard);
-            AllCards.Add(_thirdCard);
+        public List<CardInfo> AllCards 
+        { 
+            get 
+            {
+                if (_allCards == null)
+                    FillCardsList();
+                return _allCards; 
+            } 
         }
 
         public CardInfo FirstCard { get => _firstCard; set => _firstCard = value; }
         public CardInfo SecondCard { get => _secondCard; set => _secondCard = value; }
         public CardInfo ThirdCard { get => _thirdCard; set => _thirdCard = value; }
+
+        public void FillCardsList()
+        {
+            _allCards = new List<CardInfo>();
+            _allCards.Add(_firstCard);
+            _allCards.Add(_secondCard);
+            _allCards.Add(_thirdCard);
+        }
     }
 }

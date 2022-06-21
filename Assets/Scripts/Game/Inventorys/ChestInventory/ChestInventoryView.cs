@@ -11,7 +11,7 @@ namespace ChestGame.Game.View
         [SerializeField] internal Sprite SlotsBackground;
         [SerializeField] internal GameObject CardPositions;
         [SerializeField] internal ChestOpenView ChestOpenView;
-        [SerializeField] internal CombinationView CombinationView;
+        [SerializeField] internal PrizeFundView CombinationView;
         [SerializeField] internal StatisticView StatisticView;
         [SerializeField] internal BonusCombinationsView BonusCombinationView;
 

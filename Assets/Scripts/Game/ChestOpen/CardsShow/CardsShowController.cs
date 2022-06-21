@@ -1,24 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
-using UnityEngine.UI;
 using ChestGame.Game.Animations;
-using ChestGame.Data;
 using ChestGame.Game.Module.ScriptableModule;
 using ChestGame.Game.View;
 using ChestGame.Game.Module.ScriptModule;
+using ChestGame.Game.Models;
+using System.Collections.Generic;
 
 namespace ChestGame.Game.Controllers
 {
-    public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowView where U : CardsDataBase
+    public class CardsShowController<T, U> : Controller<T, U> where T : CardsShowView where U : CardShowModel
     {
         public CardsShowController(T view, U model) : base(view, model) { }
 
         protected override void Init()
         {
             base.Init();
-            _model.CardRandomizer = new CardRandomizerModule(_model);
+            _model.CardRandomizer = new CardRandomizerModule(_model.CardsData);
         }
 
         private void EnableGoldenBorderInCards()
@@ -31,105 +29,102 @@ namespace ChestGame.Game.Controllers
         {
             _view.ShowCardEffect.SetActive(true);
             var card = _model.CardRandomizer.GetRandomMisteryCard();
-            await StartCardsShowContinuity(card, 1);
+            await StartCardShowWithSprite(card, 1);
+            _view.DestroyCurrentCardCombination();
             _model.Data.PlayerData.CardInventory.Add(card);
-            await UniTask.Delay(3000);
+
+            var randomIndex = new System.Random().Next(0, 100);
+            
+            if(randomIndex < _model.CurrentChest.TokenBonusChanceInPercent)
+            {
+                await StartCardShow(_view.TokenBonusPref, 1);
+                _model.Data.DepositToken(10);
+                _model.Data.SystemData.PrizeFund -= 10;
+                _model.Data.SystemData.ReloadPrizeFund();
+            }
+            else if (randomIndex < 50)
+                await ShowCardWithRandomType();
+            else
+                await UniTask.Delay(3000);
+
             _view.DestroyCurrentCardCombination();
             _view.ShowCardEffect.SetActive(false);
         }
 
-        public async UniTask StartCardsShow(bool isCrack)
+        public async UniTask StartDefaultBoxShow(bool isCrack)
         {
             _view.ShowCardEffect.SetActive(true);
             await UniTask.Delay(1000);
-            FillWinCombination();
 
-            var combinationType = GetRandomizeCombinationType();
-            await ShowCardWithType(combinationType);
+            await ShowCardWithRandomType();
+
             if (isCrack)
                 EnableCracks();
+
             await UniTask.Delay(1000);
 
-            if (combinationType == CombinationType.bonus)
-                _model.Data.PlayerData.BonusCombinationInventory.Add(_model.CardRandomizer.CurrentBonusCombination);
-
-
             _view.DestroyCurrentCardCombination();
-            _view.DestroyCurrentWinCombination();
-            _view.transform.GetChild(0).gameObject.SetActive(true);
             _view.ShowCardEffect.SetActive(false);
         }
 
-        private void FillWinCombination()
+        private async UniTask ShowCardWithRandomType()
         {
-            var combination = _model.CardRandomizer.GetWinCombination();
-            _view.InstantiateCardWinCombination(_model.WinCombinationPref);
-            for (int i = 0; i < 3; i++)
-                _view.CurrentWinCombinationPref.transform.GetChild(i).GetComponent<Image>().sprite = combination[i].CardSprite;
+            var randomIndex = new System.Random().Next(0, 100);
+            Debug.Log(randomIndex);
+
+            if (randomIndex < _model.CurrentChest.WinChanceInProcent)
+            {
+                _model.Data.Statistic.WinNumber++;
+                _view.WinCombinationAudio.Play();
+                _model.Data.SystemData.PrizeFund -= (int)_model.CardRandomizer.CurrentWinCombination.Price;
+                await StartCombinationShow(_model.CardRandomizer.CurrentWinCombination.Combination.AllCards);
+                _model.Data.DepositToken((int)_model.CardRandomizer.CurrentWinCombination.Price);
+            }
+            else if (randomIndex < _model.CurrentChest.BonusChanceInProcaent)
+            {
+                _model.Data.Statistic.BonusNumber++;
+                await StartCombinationShow(_model.CardRandomizer.CurrentBonusCombination.Combination.AllCards);
+                EnableGoldenBorderInCards();
+                _model.Data.PlayerData.BonusCombinationInventory.Add(_model.CardRandomizer.CurrentBonusCombination);
+            }
+            else
+            {
+                await StartCombinationShow(_model.CardRandomizer.GetRandomCombination());
+            }
         }
 
-        private async UniTask ShowCardWithType(CombinationType type)
+        private async UniTask StartCombinationShow(List<CardInfo> combination)
         {
             for (int i = 0; i < 3; i++)
             {
-                if (type == CombinationType.win)
-                {
-                    var card = _model.CardRandomizer.CurrentWinCombination[i];
-                    await StartCardsShowContinuity(card, i);
-                    _model.Data.DepositToken(100);
-                }
-                else if (type == CombinationType.bonus)
-                {
-                    Debug.Log("BonusCombinationInfo");
-                    var card = _model.CardRandomizer.CurrentBonusCombination.Combination.AllCards[i];
-                    await StartCardsShowContinuity(card, i);
-                    EnableGoldenBorderInCards();
-                }
-                else
-                {
-                    var card = _model.CardRandomizer.GetRandomCard();
-                    await StartCardsShowContinuity(card, i);
-                }
+                var card = combination[i];
+                Debug.Log(card);
+                await StartCardShowWithSprite(card, i);
             }
+        }
+
+        private async UniTask StartCardShow(GameObject cardPrefab, int positionIndex)
+        {
+            _view.InstantiateNewCard(cardPrefab);
+            await StartCardsShowAnimationContinuity(positionIndex);
+        }
+
+        private async UniTask StartCardShowWithSprite(CardInfo card, int positionIndex)
+        {
+            _view.InstantiateNewCard(_model.CardsData.CardPref);
+            _view.CurrentCard.GetComponent<CardView>().Preview.sprite = card.CardSprite;
+            await StartCardsShowAnimationContinuity(positionIndex);
         }
 
         private void EnableCracks()
         {
             foreach (var card in _view.CurrentCardsCombination)
-                card.GetComponent<CardView>().Cracks.gameObject.SetActive(true);
-            Debug.Log(0);
+                if(card.GetComponent<CardView>().Cracks != null)
+                    card.GetComponent<CardView>().Cracks.gameObject.SetActive(true);
         }
 
-        private CombinationType GetRandomizeCombinationType()
+        public async UniTask StartCardsShowAnimationContinuity(int cardIndex)
         {
-            var random = new System.Random();
-            var randomIndex = random.Next(0, 100);
-
-            Debug.Log(randomIndex);
-
-            if (randomIndex < _model.CurrentChest.WinChanceInProcent)
-            {
-                Debug.Log("Win Combination");
-                _model.Data.Statistic.WinNumber++;
-                _view.WinCombinationAudio.Play();
-                return CombinationType.win;
-
-            }
-            else if (randomIndex < _model.CurrentChest.BonusChanceInProcaent)
-            {
-                _model.Data.Statistic.BonusNumber++;
-                return CombinationType.bonus;
-
-            }
-            else
-                return CombinationType.standart;
-        }
-
-        public async UniTask StartCardsShowContinuity(CardInfo card, int cardIndex)
-        {
-            _view.InstantiateNewCard(_model.CardPref);
-            _view.CurrentCard.GetComponent<CardView>().Preview.sprite = card.CardSprite;
-
             await UIAnimations.SlideUpAnimation(_view.CurrentCard);
             await UniTask.Delay(500);
 

@@ -16,7 +16,7 @@ namespace ChestGame.Game.Controllers
 
         protected override void Init()
         {
-            _model.Data.ReloadInventory += FillInventorySlots;
+            _model.Data.SystemData.ReloadInventory += FillInventorySlots;
             _view.ClosePresenterButton.onClick.AddListener(HideScreen);
             FillInventorySlots();
         }

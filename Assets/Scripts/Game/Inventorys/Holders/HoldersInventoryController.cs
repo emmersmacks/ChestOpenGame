@@ -20,7 +20,7 @@ namespace ChestGame.Game.Controllers
         {
             FillInventorySlots();
             _view.CloseButton.onClick.AddListener(HideScreen);
-            _model.Data.ReloadInventory += FillInventorySlots;
+            _model.Data.SystemData.ReloadInventory += FillInventorySlots;
         }
 
         public void FillInventorySlots()
@@ -28,7 +28,6 @@ namespace ChestGame.Game.Controllers
             var count = 0;
             foreach (var item in _model.Data.PlayerData.BonusCombinationInventory)
             {
-
                 var slot = _view.Grid.transform.GetChild(count);
                 var slotView = slot.GetComponent<HoldersSlotView>();
                 slotView.OpenButton.onClick.RemoveAllListeners();
@@ -36,6 +35,7 @@ namespace ChestGame.Game.Controllers
                 slotView.CombinationView.FirstCardPreview.sprite = item.Combination.FirstCard.CardSprite;
                 slotView.CombinationView.SecondCardPreview.sprite = item.Combination.SecondCard.CardSprite;
                 slotView.CombinationView.ThirdCardPreview.sprite = item.Combination.ThirdCard.CardSprite;
+                slotView.TimerModule.gameObject.SetActive(true);
                 if (!slotView.TimerModule.TimerIsStart)
                     slotView.TimerModule.StartTimer();
                 count++;
@@ -45,40 +45,41 @@ namespace ChestGame.Game.Controllers
         private void HideScreen()
         {
             _view.CloseButton.gameObject.SetActive(false);
-            _currentSlot.OpenButton.enabled = true;
-            _view.CloseButton.enabled = false;
             _view.CardPositions.SetActive(false);
             _view.ScreenIsShow = false;
-            _view.CardPresenterModule.DestroyCard(_model.CurrentCard);
+            foreach(var card in _model.CurrentCardCombination)
+                _view.CardPresenterModule.DestroyCard(card);
         }
 
-        private void StartCardReview(HoldersSlotView holderSlot)
+        private async UniTask StartCardReview(HoldersSlotView holderSlot)
         {
-            _currentSlot = holderSlot;
-            _currentSlot.OpenButton.enabled = false;
             _view.CloseButton.gameObject.SetActive(true);
             _view.CardPositions.SetActive(true);
             if (!_view.ScreenIsShow)
             {
                 _view.ScreenIsShow = true;
                 _model.CurrentCard = _view.CardPresenterModule.InstantiateNewCard(_model.CardPrefab);
-                _model.CurrentCard.transform.GetChild(0).GetComponent<Image>().sprite = holderSlot.CombinationView.FirstCardPreview.sprite;
-                _model.CurrentCard.transform.GetChild(1).GetComponent<Image>().sprite = holderSlot.CombinationView.SecondCardPreview.sprite;
-                _model.CurrentCard.transform.GetChild(2).GetComponent<Image>().sprite = holderSlot.CombinationView.ThirdCardPreview.sprite;
+                _model.CurrentCard.GetComponent<CardView>().Preview.sprite = holderSlot.CombinationView.FirstCardPreview.sprite;
+                _model.CurrentCardCombination.Add(_model.CurrentCard);
+                await StartCardViewAnimation(0);
 
-                StartCardViewAnimation();
-            }
+                _model.CurrentCard = _view.CardPresenterModule.InstantiateNewCard(_model.CardPrefab);
+                _model.CurrentCard.GetComponent<CardView>().Preview.sprite = holderSlot.CombinationView.SecondCardPreview.sprite;
+                _model.CurrentCardCombination.Add(_model.CurrentCard);
+                await StartCardViewAnimation(1);
 
-        }
-
-        private async UniTask StartCardViewAnimation()
-        {
-            await UIAnimations.SlideUpAnimation(_model.CurrentCard);
-            for (int i = 0; i < 3; i++)
-            {
-                UIAnimations.SlideToPointAnimation(_view.CardPositions.transform.GetChild(i).gameObject.transform.position, _model.CurrentCard.transform.GetChild(i).gameObject.transform);
+                _model.CurrentCard = _view.CardPresenterModule.InstantiateNewCard(_model.CardPrefab);
+                _model.CurrentCard.GetComponent<CardView>().Preview.sprite = holderSlot.CombinationView.ThirdCardPreview.sprite;
+                _model.CurrentCardCombination.Add(_model.CurrentCard);
+                await StartCardViewAnimation(2);
             }
             _view.CardPositions.SetActive(false);
+        }
+
+        private async UniTask StartCardViewAnimation(int indexPosition)
+        {
+            await UIAnimations.SlideUpAnimation(_model.CurrentCard);
+            UIAnimations.SlideToPointAnimation(_view.CardPositions.transform.GetChild(indexPosition).gameObject.transform.position, _model.CurrentCard.transform);
         }
     }
 }

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: CardsDataBase
   m_EditorClassIdentifier: 
   CardPref: {fileID: 2332765390023495516, guid: c10c97ce0321218458b2369bebee61db, type: 3}
-  WinCombinationPref: {fileID: 8592980860831309822, guid: 7d4da022e98f5be43bd2fa8b491b83f3, type: 3}
   AllCards:
   - {fileID: 11400000, guid: 95a4cf58f930e914d910edd3d99971f1, type: 2}
   - {fileID: 11400000, guid: 5ce9079a22a3ea743b22627ab45d0e5b, type: 2}
@@ -29,3 +28,12 @@ MonoBehaviour:
   BonusCombinations:
   - {fileID: 11400000, guid: bc5fcc6094d9d35489f047e85c787993, type: 2}
   - {fileID: 11400000, guid: a4b1805e54a5c644e8f4a8c1c4b41e7b, type: 2}
+  WinCombinations:
+  - {fileID: 11400000, guid: 5635eb4cedffbdf4ba8b7afdeb7bbbee, type: 2}
+  - {fileID: 11400000, guid: fc284097e9064ef4693683aafa6d7e60, type: 2}
+  - {fileID: 11400000, guid: 54ed1c45709a57642a4784e43ab3f860, type: 2}
+  - {fileID: 11400000, guid: b6e8050dbca331f4b86741e2d2d20f04, type: 2}
+  - {fileID: 11400000, guid: 9270bec4668fa2a49b2f75c89a874afc, type: 2}
+  - {fileID: 11400000, guid: fbe2beed916bea647be77767666bd50b, type: 2}
+  - {fileID: 11400000, guid: dcaa0461ed13ecb40a6e03125509a802, type: 2}
+  - {fileID: 11400000, guid: 619dfb725d66c4142b73448131ce40a9, type: 2}

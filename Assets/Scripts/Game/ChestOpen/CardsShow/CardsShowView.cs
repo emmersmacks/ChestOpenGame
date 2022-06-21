@@ -10,6 +10,7 @@ namespace ChestGame.Game.View
         [SerializeField] internal GameObject CardPositions;
         [SerializeField] internal GameObject CardPosition;
         [SerializeField] internal AudioSource WinCombinationAudio;
+        [SerializeField] internal GameObject TokenBonusPref;
 
         internal GameObject CurrentCard;
         internal GameObject CurrentWinCombinationPref;
@@ -25,11 +26,6 @@ namespace ChestGame.Game.View
             CurrentCardsCombination.Add(CurrentCard);
         }
 
-        public void InstantiateCardWinCombination(GameObject winCombinationPref)
-        {
-            CurrentWinCombinationPref = Instantiate(winCombinationPref, new Vector2(0, 0), Quaternion.identity, transform);
-        }
-
         public void DestroyCurrentCardCombination()
         {
             if (CurrentCardsCombination != null)
@@ -38,12 +34,6 @@ namespace ChestGame.Game.View
                         Destroy(card);
             CurrentCardsCombination = null;
         }
-
-        public void DestroyCurrentWinCombination()
-        {
-            Destroy(CurrentWinCombinationPref);
-        }
-
     }
 }
 

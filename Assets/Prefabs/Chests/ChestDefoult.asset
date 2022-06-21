@@ -17,3 +17,4 @@ MonoBehaviour:
   _price: 10
   WinChanceInProcent: 10
   BonusChanceInProcaent: 20
+  TokenBonusChanceInPercent: 30

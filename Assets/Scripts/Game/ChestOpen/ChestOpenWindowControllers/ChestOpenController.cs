@@ -54,6 +54,8 @@ namespace ChestGame.Game.Controllers
 
             if (_model.CurrentChest.ChestName != _model.DefaultChest.ChestName)
                 _view.HackButton.gameObject.SetActive(false);
+            else
+                _view.HackButton.gameObject.SetActive(true);
         }
 
         public async UniTask CloseOpenScreen()
@@ -63,11 +65,11 @@ namespace ChestGame.Game.Controllers
 
             UIAnimations.SlideToPointAnimation(ChestOpenSlotView.DefaultPosition, ChestOpenSlotView.transform);
             UIAnimations.FadeColorToWhite(_view.GetComponent<Image>());
-            UIAnimations.SlideToPointAnimation(new Vector3(_model.DefaultButtonPosition.x, 0, 0), _view.Buttons.transform);
+            UIAnimations.SlideToPointAnimation(new Vector3(_model.DefaultButtonPosition.x, _model.DefaultButtonPosition.y, 0), _view.Buttons.transform);
             await UIAnimations.ScaleMinimaze(ChestOpenSlotView.transform);
             await UIAnimations.SlideToPointAnimation(ChestOpenSlotView.DefaultPositionPreview.position, ChestOpenSlotView.Preview.transform);
 
-            _model.Data.ReloadInventory();
+            _model.Data.SystemData.ReloadInventory();
 
             _view.gameObject.SetActive(false);
             _model.SlotView.Button.enabled = true;
@@ -151,10 +153,10 @@ namespace ChestGame.Game.Controllers
             }
             else
             {
-                await cardShowController.StartCardsShow(isCrack);
+                await cardShowController.StartDefaultBoxShow(isCrack);
             }
 
-            _model.Data.ReloadInventory();
+            _model.Data.SystemData.ReloadInventory();
             await CloseOpenScreen();
             _view.OpenChestEffect.SetActive(false);
             _view.CardShowView.gameObject.SetActive(false);
@@ -181,9 +183,7 @@ namespace ChestGame.Game.Controllers
                 _model.Data.PlayerData.ChestInventory.Add(_model.UpgradeChest);
                 _view.UpgradeButton.gameObject.SetActive(false);
                 CloseOpenScreen();
-                _model.Data.ReloadInventory();
-                _model.Data.ReloadInventory();
-
+                _model.Data.SystemData.ReloadInventory();
             }
             else
             {
@@ -201,20 +201,15 @@ namespace ChestGame.Game.Controllers
             return false;
         }
 
-        private CardsShowController<CardsShowView, CardsDataBase> GetCardShowController()
+        private CardsShowController<CardsShowView, CardShowModel> GetCardShowController()
         {
-            var cardShowModel = Resources.Load<CardsDataBase>("CardsDataBase");
+            var cardShowModel = new CardShowModel();
+            cardShowModel.CardsData = Resources.Load<CardsDataBase>("CardsDataBase");
             cardShowModel.Data = _model.Data;
             cardShowModel.CurrentChest = _model.CurrentChest;
             var cardShowView = _view.CardShowView;
-            var controller = new CardsShowController<CardsShowView, CardsDataBase>(cardShowView, cardShowModel);
+            var controller = new CardsShowController<CardsShowView, CardShowModel>(cardShowView, cardShowModel);
             return controller;
         }
-    }
-    public enum CombinationType
-    {
-        standart,
-        bonus,
-        win
     }
 }

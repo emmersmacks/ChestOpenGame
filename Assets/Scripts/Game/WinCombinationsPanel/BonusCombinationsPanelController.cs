@@ -20,21 +20,14 @@ namespace ChestGame.Game.Controllers
 
         private void FillBonusCombinationsPanels()
         {
-            var randomizer = new CardRandomizerModule(_model);
-            for (int i = 0; i < 10; i++)
+            foreach(var combination in _model.WinCombinations)
             {
-                var cards = randomizer.GetBonusCombination();
-                _view.AddCardCombination(_view.ToncoinPanel5, cards);
-            }
-            for (int i = 0; i < 5; i++)
-            {
-                var cards = randomizer.GetBonusCombination();
-                _view.AddCardCombination(_view.ToncoinPanel10, cards);
-            }
-            for (int i = 0; i < 2; i++)
-            {
-                var cards = randomizer.GetBonusCombination();
-                _view.AddCardCombination(_view.ToncoinPanel50, cards);
+                if (combination.Price == PriceType.coin5)
+                    _view.AddCardCombination(_view.ToncoinPanel5, combination);
+                else if(combination.Price == PriceType.coin10)
+                    _view.AddCardCombination(_view.ToncoinPanel10, combination);
+                else
+                    _view.AddCardCombination(_view.ToncoinPanel50, combination);
             }
         }
     }

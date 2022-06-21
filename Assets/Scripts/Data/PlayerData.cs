@@ -11,12 +11,11 @@ namespace ChestGame.Data
     public class PlayerDataController
     {
         public PlayerData PlayerData { get; set; }
-        public PlayerStatistic Statistic { get; set; }
-
+        public StatisticData Statistic { get; set; }
+        public SystemData SystemData { get; set; }
+        
         private UIController _ui;
         private const string _dataPath = "/PlayerData";
-
-        public Action ReloadInventory = default;
 
         public PlayerDataController(UIController ui)
         {
@@ -82,7 +81,10 @@ namespace ChestGame.Data
                 PlayerData = new PlayerData();
 
             if (Statistic == null)
-                Statistic = new PlayerStatistic();
+                Statistic = new StatisticData();
+
+            if (SystemData == null)
+                SystemData = new SystemData();
 
             Debug.Log("First start");
             PlayerData.Token = 100;
@@ -94,71 +96,6 @@ namespace ChestGame.Data
             PlayerData.BonusCombinationInventory = new List<BonusCombinationInfo>();
             _ui.ArrowTrainingStart();
         }
-    }
-
-    public class PlayerStatistic
-    {
-        private int _chestOpenNumber;
-        private int _tokenCollectedNumber;
-        private int _keycollectedNumber;
-        private int _winNumber;
-        private int _bonusNumber;
-        public int ChestOpenNumber
-        {
-            get { return _chestOpenNumber; }
-            set
-            {
-                _chestOpenNumber = value;
-                ChangeStatistic();
-            }
-        }
-
-        public int TokenCollectedNumber
-        {
-            get { return _tokenCollectedNumber; }
-            set
-            {
-                _tokenCollectedNumber = value;
-                ChangeStatistic();
-
-            }
-        }
-
-        public int KeyCollectedNumber
-        {
-            get { return _keycollectedNumber; }
-            set
-            {
-                _keycollectedNumber = value;
-                ChangeStatistic();
-
-            }
-        }
-
-        public int WinNumber
-        {
-            get { return _winNumber; }
-            set
-            {
-                _winNumber = value;
-                ChangeStatistic();
-
-            }
-        }
-
-        public int BonusNumber
-        {
-            get { return _bonusNumber; }
-            set
-            {
-                _bonusNumber = value;
-                ChangeStatistic();
-
-            }
-        }
-
-        public Action ChangeStatistic = default;
-
     }
 
     public class PlayerData

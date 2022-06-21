@@ -13,6 +13,7 @@ namespace ChestGame.Game.Models
         internal PlayerDataController Data;
         internal ChestOpenController<ChestOpenView, ChestOpenModel> ChestOpenController;
         internal GameObject CurrentCard;
+        internal List<GameObject> CurrentCardCombination;
 
         [SerializeField] internal GameObject CardPrefab;
     }

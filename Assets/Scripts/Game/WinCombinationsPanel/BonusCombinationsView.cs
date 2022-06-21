@@ -13,7 +13,7 @@ namespace ChestGame.Game.View
 
         [SerializeField] private GameObject _cardCombinationPrefab;
 
-        public void AddCardCombination(GameObject panel, BonusCombinationInfo data)
+        public void AddCardCombination(GameObject panel, WinCombinationInfo data)
         {
             var cardCombinationObject = Instantiate(_cardCombinationPrefab, panel.transform);
             var view = cardCombinationObject.GetComponent<CombinationView>();

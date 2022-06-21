@@ -13,6 +13,7 @@ namespace ChestGame.Game.Module.ScriptableModule
         [SerializeField] private int _price;
         [SerializeField] internal int WinChanceInProcent;
         [SerializeField] internal int BonusChanceInProcaent;
+        [SerializeField] internal int TokenBonusChanceInPercent;
         public Sprite ChestSprite => this._chestSprite;
         public int Price => this._price;
         public string ChestName => this._chestName;

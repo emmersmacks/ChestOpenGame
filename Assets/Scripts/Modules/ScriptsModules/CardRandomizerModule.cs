@@ -11,8 +11,9 @@ namespace ChestGame.Game.Module.ScriptModule
         private CardsDataBase _cardsData;
         private List<CardInfo> _cards;
         private List<BonusCombinationInfo> _bonusCombinations;
+        private List<WinCombinationInfo> _winCombinations;
 
-        internal List<CardInfo> CurrentWinCombination;
+        internal WinCombinationInfo CurrentWinCombination;
         internal BonusCombinationInfo CurrentBonusCombination;
         private int _generationSeed = 2;
         public CardRandomizerModule(CardsDataBase cardData)
@@ -20,11 +21,12 @@ namespace ChestGame.Game.Module.ScriptModule
             _cardsData = cardData;
             _cards = cardData.AllCards;
             _bonusCombinations = cardData.BonusCombinations;
-            CurrentWinCombination = new List<CardInfo>();
+            _winCombinations = cardData.WinCombinations;
             var random = new System.Random();
             var bonusIndex = random.Next(0, _bonusCombinations.Count);
+            var winIndex = random.Next(0, _winCombinations.Count);
             CurrentBonusCombination = _bonusCombinations[bonusIndex];
-            Debug.Log(CurrentBonusCombination);
+            CurrentWinCombination = _winCombinations[winIndex];
         }
 
         public CardInfo GetRandomCard()
@@ -35,22 +37,14 @@ namespace ChestGame.Game.Module.ScriptModule
             return _cards[cardIndex];
         }
 
-        public List<CardInfo> GetWinCombination()
+        public List<CardInfo> GetRandomCombination()
         {
-            CurrentWinCombination = new List<CardInfo>();
+            var combination = new List<CardInfo>();
             for (int i = 0; i < 3; i++)
             {
-                CurrentWinCombination.Add(GetRandomCard());
+                combination.Add(GetRandomCard());
             }
-            return CurrentWinCombination;
-        }
-
-        public BonusCombinationInfo GetBonusCombination()
-        {
-            _generationSeed += 12;
-            var random = new System.Random(_generationSeed);
-            var cardIndex = random.Next(0, _bonusCombinations.Count);
-            return _bonusCombinations[cardIndex];
+            return combination;
         }
 
         public CardInfo GetRandomMisteryCard()

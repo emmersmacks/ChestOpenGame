@@ -17,9 +17,10 @@ namespace ChestGame.Game.Controllers
         {
             base.Init();
             _model.Data.Statistic.ChangeStatistic += FillStatisticScreen;
-            _model.Data.ReloadInventory += FillInventorySlots;
-            var prizeModel = Resources.Load<CardsDataBase>("CardsDataBase");
-            var prizeFund = new PrizeFundController<CombinationView, CardsDataBase>(_view.CombinationView, prizeModel);
+            _model.Data.SystemData.ReloadInventory += FillInventorySlots;
+            var prizeModel = new PrizeFundModel();
+            prizeModel.Data = _model.Data;
+            var prizeFund = new PrizeFundController<PrizeFundView, PrizeFundModel>(_view.CombinationView, prizeModel);
             FillInventorySlots();
             FillStatisticScreen();
             FillPrizePanel();
