@@ -85,10 +85,12 @@
     <Compile Include="Assets\Scripts\Modules\ScriptableModules\BonusCombinationInfo.cs" />
     <Compile Include="Assets\Scripts\Animations\UIAnimations.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\ChestInventory\ChestInventoryView.cs" />
+    <Compile Include="Assets\Scripts\Modules\ScriptableModules\WinCombinationInfo.cs" />
     <Compile Include="Assets\Scripts\Game\Menu\MenuView.cs" />
     <Compile Include="Assets\Scripts\Game\Inventorys\Holders\HoldersInventoryView.cs" />
     <Compile Include="Assets\Scripts\MVCInterfaces\IView.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csParticleMove.cs" />
+    <Compile Include="Assets\Scripts\Game\WinCombinationsPanel\ToncoinView.cs" />
     <Compile Include="Assets\Scripts\Data\StatisticData.cs" />
     <Compile Include="Assets\Scripts\Modules\ScriptableModules\CardInfo.cs" />
     <Compile Include="Assets\Scripts\Applications\CardInventoryApplication.cs" />
@@ -130,8 +132,6 @@
     <Compile Include="Assets\Scripts\Applications\UIApplication.cs" />
     <Compile Include="Assets\52SpecialEffectPack\EffectEditor\ShurikenEffectEditor\csShurikenEffectChanger.cs" />
     <Compile Include="Assets\52SpecialEffectPack\Animation&amp;Script\csDestroyEffect.cs" />
-    <Compile Include="Assets\Scripts\Modules\ScriptableModules\WinCombinationInfo.cs" />
-    <Compile Include="Assets\Scripts\Game\WinCombinationsPanel\ToncoinView.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

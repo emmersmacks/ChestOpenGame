@@ -77,6 +77,7 @@ namespace ChestGame.Game.Controllers
                 _model.Data.Statistic.WinNumber++;
                 _view.WinCombinationAudio.Play();
                 _model.Data.SystemData.PrizeFund -= (int)_model.CardRandomizer.CurrentWinCombination.Price;
+                _model.Data.SystemData.ReloadPrizeFund();
                 await StartCombinationShow(_model.CardRandomizer.CurrentWinCombination.Combination.AllCards);
                 _model.Data.DepositToken((int)_model.CardRandomizer.CurrentWinCombination.Price);
             }
